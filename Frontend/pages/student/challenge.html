@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Classroom Challenge | Fredu Spark</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <header class="student-navbar">
+
+        <a href="dashboard.html" class="logo">
+            <span>Fredu</span> Spark
+        </a>
+
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="subjects.html">Subjects</a>
+            <a href="lessons.html">Lessons</a>
+            <a href="challenge.html" class="active">Challenges</a>
+            <a href="progress.html">My Progress</a>
+        </nav>
+
+        <div class="student-profile">
+
+            <div class="profile-circle">
+                F
+            </div>
+
+            <span>Fredericka</span>
+
+            <button class="logout-btn" onclick="logout()">
+                Log Out
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="challenge-page">
+
+        <!-- CHALLENGE HEADER -->
+
+        <section class="challenge-header">
+
+            <div>
+
+                <span class="difficulty">
+                    EASY
+                </span>
+
+                <p class="subject-category">
+                    SCIENCE
+                </p>
+
+                <h1>
+                    Build a Simple Water Filter
+                </h1>
+
+                <p>
+                    Put your knowledge of materials and
+                    filtration into practice.
+                </p>
+
+                <div class="challenge-meta">
+
+                    <span>
+                        ⏱ 30 minutes
+                    </span>
+
+                    <span>
+                        ⭐ Beginner
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="challenge-big-icon">
+                🧪
+            </div>
+
+        </section>
+
+
+        <!-- CHALLENGE CONTENT -->
+
+        <section class="challenge-layout">
+
+
+            <!-- LEFT -->
+
+            <div class="challenge-main-content">
+
+
+                <!-- OBJECTIVE -->
+
+                <article class="challenge-section">
+
+                    <p class="small-heading">
+                        01 — OBJECTIVE
+                    </p>
+
+                    <h2>
+                        What will you learn?
+                    </h2>
+
+                    <p>
+                        You will explore how different materials
+                        can be used to remove visible impurities
+                        from water.
+                    </p>
+
+                </article>
+
+
+                <!-- MATERIALS -->
+
+                <article class="challenge-section">
+
+                    <p class="small-heading">
+                        02 — MATERIALS
+                    </p>
+
+                    <h2>
+                        What do you need?
+                    </h2>
+
+                    <ul class="materials-list">
+
+                        <li>
+                            <span>✓</span>
+                            A plastic bottle
+                        </li>
+
+                        <li>
+                            <span>✓</span>
+                            Clean sand
+                        </li>
+
+                        <li>
+                            <span>✓</span>
+                            Small stones or gravel
+                        </li>
+
+                        <li>
+                            <span>✓</span>
+                            Cotton or cloth
+                        </li>
+
+                        <li>
+                            <span>✓</span>
+                            A container
+                        </li>
+
+                        <li>
+                            <span>✓</span>
+                            Dirty water for testing
+                        </li>
+
+                    </ul>
+
+                </article>
+
+
+                <!-- INSTRUCTIONS -->
+
+                <article class="challenge-section">
+
+                    <p class="small-heading">
+                        03 — INSTRUCTIONS
+                    </p>
+
+                    <h2>
+                        Let's do it!
+                    </h2>
+
+
+                    <div class="instruction">
+
+                        <span>1</span>
+
+                        <p>
+                            Cut the bottom of the plastic bottle
+                            carefully.
+                        </p>
+
+                    </div>
+
+
+                    <div class="instruction">
+
+                        <span>2</span>
+
+                        <p>
+                            Place cotton or cloth near the bottle
+                            opening.
+                        </p>
+
+                    </div>
+
+
+                    <div class="instruction">
+
+                        <span>3</span>
+
+                        <p>
+                            Add layers of sand and gravel.
+                        </p>
+
+                    </div>
+
+
+                    <div class="instruction">
+
+                        <span>4</span>
+
+                        <p>
+                            Pour the dirty water through the filter
+                            and observe what happens.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <!-- REAL LIFE -->
+
+                <article class="real-life-card">
+
+                    <p class="small-heading">
+                        REAL-LIFE CONNECTION
+                    </p>
+
+                    <h2>
+                        Where can you see this concept?
+                    </h2>
+
+                    <p>
+                        Filtration is used in many water treatment
+                        systems. Think about how the materials you
+                        used in this activity helped remove visible
+                        particles from the water.
+                    </p>
+
+                </article>
+
+
+                <!-- REFLECTION -->
+
+                <article class="challenge-section">
+
+                    <p class="small-heading">
+                        04 — REFLECTION
+                    </p>
+
+                    <h2>
+                        Think about what you did.
+                    </h2>
+
+                    <form id="reflectionForm">
+
+                        <label for="reflection">
+                            What did you observe during the activity?
+                        </label>
+
+                        <textarea
+                            id="reflection"
+                            rows="6"
+                            placeholder="Write your answer here..."
+                        ></textarea>
+
+                        <label for="improvement">
+                            What would you change if you did it again?
+                        </label>
+
+                        <textarea
+                            id="improvement"
+                            rows="6"
+                            placeholder="Write your answer here..."
+                        ></textarea>
+
+                        <button
+                            type="submit"
+                            class="primary-btn"
+                        >
+                            Submit Reflection
+                        </button>
+
+                    </form>
+
+                </article>
+
+            </div>
+
+
+            <!-- RIGHT SIDEBAR -->
+
+            <aside class="challenge-sidebar">
+
+                <div class="challenge-progress">
+
+                    <p class="small-heading">
+                        YOUR PROGRESS
+                    </p>
+
+                    <div class="challenge-progress-bar">
+
+                        <div class="challenge-progress-fill"></div>
+
+                    </div>
+
+                    <p>
+                        0% completed
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="primary-btn complete-btn"
+                    onclick="completeChallenge()"
+                >
+                    Mark Challenge Complete
+                </button>
+
+
+                <a
+                    href="lessons.html"
+                    class="secondary-btn"
+                >
+                    ← Back to Lessons
+                </a>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <div class="footer-logo">
+            Fredu <span>Spark</span>
+        </div>
+
+        <p>
+            Learning beyond books.
+        </p>
+
+        <p class="copyright">
+            © 2026 Fredu Spark. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

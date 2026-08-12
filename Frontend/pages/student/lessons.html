@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lessons | Fredu Spark</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <header class="student-navbar">
+
+        <a href="dashboard.html" class="logo">
+            <span>Fredu</span> Spark
+        </a>
+
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="subjects.html">Subjects</a>
+            <a href="lessons.html" class="active">Lessons</a>
+            <a href="challenge.html">Challenges</a>
+            <a href="progress.html">My Progress</a>
+        </nav>
+
+        <div class="student-profile">
+
+            <div class="profile-circle">
+                F
+            </div>
+
+            <span>Fredericka</span>
+
+            <button class="logout-btn" onclick="logout()">
+                Log Out
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="student-page">
+
+        <section class="page-header">
+
+            <div>
+
+                <p class="small-heading">
+                    LEARN
+                </p>
+
+                <h1>
+                    Lessons
+                </h1>
+
+                <p>
+                    Explore lessons created to connect
+                    classroom knowledge with real life.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- FILTERS -->
+
+        <section class="content-tools">
+
+            <div class="search-box">
+
+                <span>🔍</span>
+
+                <input
+                    type="text"
+                    id="lessonSearch"
+                    placeholder="Search lessons..."
+                    onkeyup="searchLessons()"
+                >
+
+            </div>
+
+
+            <select id="lessonSubjectFilter">
+
+                <option value="all">
+                    All Subjects
+                </option>
+
+                <option value="science">
+                    Science
+                </option>
+
+                <option value="mathematics">
+                    Mathematics
+                </option>
+
+                <option value="ict">
+                    ICT
+                </option>
+
+                <option value="english">
+                    English
+                </option>
+
+            </select>
+
+        </section>
+
+
+        <!-- LESSONS -->
+
+        <section class="lesson-grid">
+
+
+            <article class="lesson-card">
+
+                <div class="lesson-image science-bg">
+                    🧪
+                </div>
+
+                <div class="lesson-content">
+
+                    <p class="subject-category">
+                        SCIENCE
+                    </p>
+
+                    <h2>
+                        States of Matter
+                    </h2>
+
+                    <p>
+                        Learn about solids, liquids and gases
+                        and how matter changes from one state
+                        to another.
+                    </p>
+
+                    <div class="lesson-meta">
+
+                        <span>
+                            ⏱ 30 min
+                        </span>
+
+                        <span>
+                            ⭐ Beginner
+                        </span>
+
+                    </div>
+
+                    <a href="challenge.html" class="primary-btn">
+                        Start Learning
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="lesson-card">
+
+                <div class="lesson-image mathematics-bg">
+                    📐
+                </div>
+
+                <div class="lesson-content">
+
+                    <p class="subject-category">
+                        MATHEMATICS
+                    </p>
+
+                    <h2>
+                        Fractions Around Us
+                    </h2>
+
+                    <p>
+                        Discover how fractions are used
+                        in everyday activities.
+                    </p>
+
+                    <div class="lesson-meta">
+
+                        <span>
+                            ⏱ 25 min
+                        </span>
+
+                        <span>
+                            ⭐ Beginner
+                        </span>
+
+                    </div>
+
+                    <a href="challenge.html" class="primary-btn">
+                        Start Learning
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="lesson-card">
+
+                <div class="lesson-image ict-bg">
+                    💻
+                </div>
+
+                <div class="lesson-content">
+
+                    <p class="subject-category">
+                        ICT
+                    </p>
+
+                    <h2>
+                        Introduction to Algorithms
+                    </h2>
+
+                    <p>
+                        Learn how step-by-step instructions
+                        can help solve problems.
+                    </p>
+
+                    <div class="lesson-meta">
+
+                        <span>
+                            ⏱ 40 min
+                        </span>
+
+                        <span>
+                            ⭐ Intermediate
+                        </span>
+
+                    </div>
+
+                    <a href="challenge.html" class="primary-btn">
+                        Start Learning
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="lesson-card">
+
+                <div class="lesson-image english-bg">
+                    ✍🏾
+                </div>
+
+                <div class="lesson-content">
+
+                    <p class="subject-category">
+                        ENGLISH
+                    </p>
+
+                    <h2>
+                        Creative Storytelling
+                    </h2>
+
+                    <p>
+                        Explore characters, settings and
+                        ideas through creative writing.
+                    </p>
+
+                    <div class="lesson-meta">
+
+                        <span>
+                            ⏱ 35 min
+                        </span>
+
+                        <span>
+                            ⭐ Beginner
+                        </span>
+
+                    </div>
+
+                    <a href="challenge.html" class="primary-btn">
+                        Start Learning
+                    </a>
+
+                </div>
+
+            </article>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <div class="footer-logo">
+            Fredu <span>Spark</span>
+        </div>
+
+        <p>
+            Learning beyond books.
+        </p>
+
+        <p class="copyright">
+            © 2026 Fredu Spark. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Create Challenge | Fredu Spark</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+<body>
+
+
+    <!-- NAVIGATION -->
+
+    <header class="teacher-navbar">
+
+        <a
+            href="dashboard.html"
+            class="logo"
+        >
+            <span>Fredu</span> Spark
+        </a>
+
+
+        <nav>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="subjects.html">
+                Subjects
+            </a>
+
+            <a href="lessons.html">
+                Lessons
+            </a>
+
+            <a
+                href="challenges.html"
+                class="active"
+            >
+                Challenges
+            </a>
+
+        </nav>
+
+
+        <div class="teacher-profile">
+
+            <div class="profile-circle">
+                F
+            </div>
+
+            <span>
+                Fredericka
+            </span>
+
+            <button
+                class="logout-btn"
+                onclick="logout()"
+            >
+                Log Out
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="form-page">
+
+
+        <div class="form-page-header">
+
+            <a
+                href="challenges.html"
+                class="back-link"
+            >
+                ← Back to Challenges
+            </a>
+
+            <p class="small-heading">
+                CLASSROOM CHALLENGE
+            </p>
+
+            <h1>
+                Create a Challenge
+            </h1>
+
+            <p>
+                Design an activity that allows students
+                to put their knowledge into practice.
+            </p>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form
+            id="challengeForm"
+            class="content-form"
+        >
+
+
+            <!-- BASIC INFORMATION -->
+
+            <section class="form-section">
+
+                <div class="form-section-header">
+
+                    <span>
+                        01
+                    </span>
+
+                    <div>
+
+                        <h2>
+                            Challenge Information
+                        </h2>
+
+                        <p>
+                            Give your challenge a clear identity.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="challengeTitle">
+                        Challenge Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="challengeTitle"
+                        name="title"
+                        placeholder="e.g. Build a Simple Water Filter"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="challengeSubject">
+                            Subject
+                        </label>
+
+                        <select
+                            id="challengeSubject"
+                            name="subject"
+                            required
+                        >
+
+                            <option value="">
+                                Select subject
+                            </option>
+
+                            <option value="science">
+                                Science
+                            </option>
+
+                            <option value="mathematics">
+                                Mathematics
+                            </option>
+
+                            <option value="ict">
+                                ICT
+                            </option>
+
+                            <option value="english">
+                                English
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="challengeLesson">
+                            Related Lesson
+                        </label>
+
+                        <select
+                            id="challengeLesson"
+                            name="lesson"
+                            required
+                        >
+
+                            <option value="">
+                                Select lesson
+                            </option>
+
+                            <option value="1">
+                                States of Matter
+                            </option>
+
+                            <option value="2">
+                                Fractions Around Us
+                            </option>
+
+                            <option value="3">
+                                Introduction to Algorithms
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="challengeDifficulty">
+                            Difficulty
+                        </label>
+
+                        <select
+                            id="challengeDifficulty"
+                            name="difficulty"
+                            required
+                        >
+
+                            <option value="">
+                                Select difficulty
+                            </option>
+
+                            <option value="easy">
+                                Easy
+                            </option>
+
+                            <option value="medium">
+                                Medium
+                            </option>
+
+                            <option value="hard">
+                                Hard
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="challengeDuration">
+                            Duration
+                        </label>
+
+                        <select
+                            id="challengeDuration"
+                            name="duration"
+                            required
+                        >
+
+                            <option value="">
+                                Select duration
+                            </option>
+
+                            <option value="15">
+                                15 minutes
+                            </option>
+
+                            <option value="20">
+                                20 minutes
+                            </option>
+
+                            <option value="30">
+                                30 minutes
+                            </option>
+
+                            <option value="45">
+                                45 minutes
+                            </option>
+
+                            <option value="60">
+                                60 minutes
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="challengeDescription">
+                        Challenge Description
+                    </label>
+
+                    <textarea
+                        id="challengeDescription"
+                        name="description"
+                        rows="5"
+                        placeholder="Describe the challenge..."
+                        required
+                    ></textarea>
+
+                </div>
+
+            </section>
+
+
+            <!-- OBJECTIVE -->
+
+            <section class="form-section">
+
+                <div class="form-section-header">
+
+                    <span>
+                        02
+                    </span>
+
+                    <div>
+
+                        <h2>
+                            Learning Objective
+                        </h2>
+
+                        <p>
+                            What should students learn from
+                            completing this challenge?
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="challengeObjective">
+                        Objective
+                    </label>
+
+                    <textarea
+                        id="challengeObjective"
+                        name="objective"
+                        rows="5"
+                        placeholder="Students should be able to..."
+                        required
+                    ></textarea>
+
+                </div>
+
+            </section>
+
+
+            <!-- MATERIALS -->
+
+            <section class="form-section">
+
+                <div class="form-section-header">
+
+                    <span>
+                        03
+                    </span>
+
+                    <div>
+
+                        <h2>
+                            Materials
+                        </h2>
+
+                        <p>
+                            What will students need?
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="materialsContainer"
+                    class="dynamic-fields"
+                >
+
+                    <div class="dynamic-field">
+
+                        <input
+                            type="text"
+                            name="materials[]"
+                            placeholder="e.g. Plastic bottle"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            onclick="removeField(this)"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="add-field-btn"
+                    onclick="addMaterial()"
+                >
+                    + Add Material
+                </button>
+
+            </section>
+
+
+            <!-- INSTRUCTIONS -->
+
+            <section class="form-section">
+
+                <div class="form-section-header">
+
+                    <span>
+                        04
+                    </span>
+
+                    <div>
+
+                        <h2>
+                            Instructions
+                        </h2>
+
+                        <p>
+                            Give students clear steps to follow.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="instructionsContainer"
+                    class="dynamic-fields"
+                >
+
+                    <div class="dynamic-field numbered-field">
+
+                        <span>
+                            1
+                        </span>
+
+                        <input
+                            type="text"
+                            name="instructions[]"
+                            placeholder="Enter the first step..."
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            onclick="removeField(this)"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="add-field-btn"
+                    onclick="addInstruction()"
+                >
+                    + Add Step
+                </button>
+
+            </section>
+
+
+            <!-- REFLECTION -->
+
+            <section class="form-section">
+
+                <div class="form-section-header">
+
+                    <span>
+                        05
+                    </span>
+
+                    <div>
+
+                        <h2>
+                            Reflection
+                        </h2>
+
+                        <p>
+                            Encourage students to think about
+                            what they experienced.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="reflectionQuestion">
+                        Reflection Question
+                    </label>
+
+                    <textarea
+                        id="reflectionQuestion"
+                        name="reflection_question"
+                        rows="5"
+                        placeholder="What did you observe? What would you change?"
+                    ></textarea>
+
+                </div>
+
+            </section>
+
+
+            <!-- ACTIONS -->
+
+            <div class="form-actions">
+
+                <a
+                    href="challenges.html"
+                    class="secondary-btn"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+                    Save Challenge
+                </button>
+
+            </div>
+
+        </form>
+
+    </main>
+
+
+    <footer>
+
+        <div class="footer-logo">
+            Fredu <span>Spark</span>
+        </div>
+
+        <p>
+            Learning beyond books.
+        </p>
+
+    </footer>
+
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

@@ -2,30 +2,61 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Subjects | Fredu Spark</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="../css/style.css">
+    <title>Manage Subjects | Fredu Spark</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
 </head>
 
 <body>
 
-    <!-- ================= NAVIGATION ================= -->
+
+    <!-- NAVIGATION -->
 
     <header class="teacher-navbar">
 
-        <div class="logo">
+        <a
+            href="dashboard.html"
+            class="logo"
+        >
             <span>Fredu</span> Spark
-        </div>
+        </a>
+
 
         <nav>
-            <a href="dashboard.html">Dashboard</a>
-            <a href="subjects.html" class="active">Subjects</a>
-            <a href="lessons.html">Lessons</a>
-            <a href="challenges.html">Challenges</a>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a
+                href="subjects.html"
+                class="active"
+            >
+                Subjects
+            </a>
+
+            <a href="lessons.html">
+                Lessons
+            </a>
+
+            <a href="challenges.html">
+                Challenges
+            </a>
+
         </nav>
+
 
         <div class="teacher-profile">
 
@@ -33,9 +64,14 @@
                 F
             </div>
 
-            <span>Fredericka</span>
+            <span>
+                Fredericka
+            </span>
 
-            <button class="logout-btn" onclick="logout()">
+            <button
+                class="logout-btn"
+                onclick="logout()"
+            >
                 Log Out
             </button>
 
@@ -44,18 +80,19 @@
     </header>
 
 
-    <!-- ================= MAIN ================= -->
+    <!-- MAIN -->
 
     <main class="teacher-page">
 
-        <!-- PAGE HEADER -->
+
+        <!-- HEADER -->
 
         <section class="page-header">
 
             <div>
 
                 <p class="small-heading">
-                    TEACHING CONTENT
+                    CONTENT MANAGEMENT
                 </p>
 
                 <h1>
@@ -63,71 +100,21 @@
                 </h1>
 
                 <p>
-                    Organise your lessons and classroom challenges
+                    Organise your lessons and challenges
                     by subject.
                 </p>
 
             </div>
 
-            <button class="primary-btn" onclick="openSubjectForm()">
-                + Add Subject
-            </button>
-
         </section>
 
 
-        <!-- ================= SEARCH ================= -->
+        <!-- SUBJECT GRID -->
 
-        <section class="content-tools">
-
-            <div class="search-box">
-
-                <span>🔍</span>
-
-                <input
-                    type="text"
-                    id="subjectSearch"
-                    placeholder="Search subjects..."
-                    onkeyup="searchSubjects()"
-                >
-
-            </div>
-
-            <select id="subjectFilter">
-
-                <option value="all">
-                    All Subjects
-                </option>
-
-                <option value="science">
-                    Science
-                </option>
-
-                <option value="mathematics">
-                    Mathematics
-                </option>
-
-                <option value="ict">
-                    ICT
-                </option>
-
-                <option value="english">
-                    English
-                </option>
-
-            </select>
-
-        </section>
+        <section class="subjects-grid">
 
 
-        <!-- ================= SUBJECTS ================= -->
-
-        <section class="subjects-grid" id="subjectsGrid">
-
-
-            <!-- SCIENCE -->
-
-            <article class="subject-card" data-subject="science">
+            <article class="subject-card">
 
                 <div class="subject-card-top">
 
@@ -154,7 +141,7 @@
 
                 <p>
                     Explore scientific concepts through
-                    practical activities and experiments.
+                    practical activities.
                 </p>
 
                 <div class="subject-stats">
@@ -169,16 +156,17 @@
 
                 </div>
 
-                <a href="lessons.html" class="subject-link">
-                    View Lessons →
+                <a
+                    href="lessons.html"
+                    class="subject-link"
+                >
+                    Manage Lessons →
                 </a>
 
             </article>
 
 
-            <!-- MATHEMATICS -->
-
-            <article class="subject-card" data-subject="mathematics">
+            <article class="subject-card">
 
                 <div class="subject-card-top">
 
@@ -204,8 +192,8 @@
                 </h2>
 
                 <p>
-                    Help students understand mathematical
-                    concepts through real-world problems.
+                    Connect mathematical concepts
+                    to everyday situations.
                 </p>
 
                 <div class="subject-stats">
@@ -220,16 +208,17 @@
 
                 </div>
 
-                <a href="lessons.html" class="subject-link">
-                    View Lessons →
+                <a
+                    href="lessons.html"
+                    class="subject-link"
+                >
+                    Manage Lessons →
                 </a>
 
             </article>
 
 
-            <!-- ICT -->
-
-            <article class="subject-card" data-subject="ict">
+            <article class="subject-card">
 
                 <div class="subject-card-top">
 
@@ -255,8 +244,8 @@
                 </h2>
 
                 <p>
-                    Introduce students to technology,
-                    digital skills and problem solving.
+                    Develop digital skills and
+                    technology-based problem solving.
                 </p>
 
                 <div class="subject-stats">
@@ -271,16 +260,17 @@
 
                 </div>
 
-                <a href="lessons.html" class="subject-link">
-                    View Lessons →
+                <a
+                    href="lessons.html"
+                    class="subject-link"
+                >
+                    Manage Lessons →
                 </a>
 
             </article>
 
 
-            <!-- ENGLISH -->
-
-            <article class="subject-card" data-subject="english">
+            <article class="subject-card">
 
                 <div class="subject-card-top">
 
@@ -306,8 +296,8 @@
                 </h2>
 
                 <p>
-                    Develop communication, reading and
-                    creative thinking skills.
+                    Build communication and creative
+                    thinking skills.
                 </p>
 
                 <div class="subject-stats">
@@ -322,147 +312,50 @@
 
                 </div>
 
-                <a href="lessons.html" class="subject-link">
-                    View Lessons →
+                <a
+                    href="lessons.html"
+                    class="subject-link"
+                >
+                    Manage Lessons →
                 </a>
 
             </article>
 
+        </section>
 
-            <!-- ADD SUBJECT CARD -->
 
-            <button
-                class="add-subject-card"
-                onclick="openSubjectForm()"
-            >
+        <!-- CREATE SUBJECT -->
 
-                <div class="add-icon">
-                    +
-                </div>
+        <section class="create-content-banner">
+
+            <div>
+
+                <p class="small-heading">
+                    NEW SUBJECT
+                </p>
 
                 <h2>
-                    Add a Subject
+                    Want to teach something new?
                 </h2>
 
                 <p>
-                    Create a new subject for your
-                    students.
+                    Add a subject and start creating
+                    lessons for your students.
                 </p>
 
+            </div>
+
+            <button
+                class="primary-btn"
+                onclick="openSubjectForm()"
+            >
+                + Add Subject
             </button>
 
         </section>
 
-
-        <!-- ================= EMPTY MESSAGE ================= -->
-
-        <div
-            id="noSubjects"
-            class="empty-state"
-            style="display: none;"
-        >
-
-            <div class="empty-icon">
-                🔍
-            </div>
-
-            <h2>
-                No subjects found
-            </h2>
-
-            <p>
-                Try searching for a different subject.
-            </p>
-
-        </div>
-
     </main>
 
-
-    <!-- ================= ADD SUBJECT MODAL ================= -->
-
-    <div
-        id="subjectModal"
-        class="modal-overlay"
-        style="display: none;"
-    >
-
-        <div class="modal">
-
-            <button
-                class="modal-close"
-                onclick="closeSubjectForm()"
-            >
-                ×
-            </button>
-
-            <p class="small-heading">
-                NEW SUBJECT
-            </p>
-
-            <h2>
-                Add a Subject
-            </h2>
-
-            <p>
-                Create a subject that you can use
-                to organise your lessons.
-            </p>
-
-
-            <form id="subjectForm">
-
-                <label for="subjectName">
-                    Subject Name
-                </label>
-
-                <input
-                    type="text"
-                    id="subjectName"
-                    placeholder="e.g. Science"
-                    required
-                >
-
-
-                <label for="subjectDescription">
-                    Description
-                </label>
-
-                <textarea
-                    id="subjectDescription"
-                    placeholder="Briefly describe the subject..."
-                    rows="4"
-                    required
-                ></textarea>
-
-
-                <label for="subjectIcon">
-                    Subject Icon
-                </label>
-
-                <input
-                    type="text"
-                    id="subjectIcon"
-                    placeholder="e.g. 🧪"
-                    maxlength="2"
-                >
-
-
-                <button
-                    type="submit"
-                    class="primary-btn"
-                >
-                    Create Subject
-                </button>
-
-            </form>
-
-        </div>
-
-    </div>
-
-
-    <!-- ================= FOOTER ================= -->
 
     <footer>
 
@@ -480,8 +373,6 @@
 
     </footer>
 
-
-    <!-- JAVASCRIPT -->
 
     <script src="../js/script.js"></script>
 

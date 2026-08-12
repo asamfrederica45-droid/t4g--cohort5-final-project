@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Create Lesson | Fredu Spark</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+<body>
+
+
+    <!-- NAVIGATION -->
+
+    <header class="teacher-navbar">
+
+        <a
+            href="dashboard.html"
+            class="logo"
+        >
+            <span>Fredu</span> Spark
+        </a>
+
+
+        <nav>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="subjects.html">
+                Subjects
+            </a>
+
+            <a
+                href="lessons.html"
+                class="active"
+            >
+                Lessons
+            </a>
+
+            <a href="challenges.html">
+                Challenges
+            </a>
+
+        </nav>
+
+
+        <div class="teacher-profile">
+
+            <div class="profile-circle">
+                F
+            </div>
+
+            <span>
+                Fredericka
+            </span>
+
+            <button
+                class="logout-btn"
+                onclick="logout()"
+            >
+                Log Out
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="form-page">
+
+
+        <div class="form-page-header">
+
+            <a
+                href="lessons.html"
+                class="back-link"
+            >
+                ← Back to Lessons
+            </a>
+
+            <p class="small-heading">
+                LESSON CREATOR
+            </p>
+
+            <h1>
+                Create a New Lesson
+            </h1>
+
+            <p>
+                Build a lesson that helps students
+                understand and apply a concept.
+            </p>
+
+        </div>
+
+
+        <!-- LESSON FORM -->
+
+        <form
+            id="lessonForm"
+            class="content-form"
+        >
+
+
+            <!-- BASIC INFORMATION -->
+
+            <section class="form-section">
+
+                <div class="form-section-header">
+
+                    <span>
+                        01
+                    </span>
+
+                    <div>
+
+                        <h2>
+                            Basic Information
+                        </h2>
+
+                        <p>
+                            Tell students what this lesson
+                            is about.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="lessonTitle">
+                        Lesson Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="lessonTitle"
+                        name="title"
+                        placeholder="e.g. States of Matter"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="lessonSubject">
+                            Subject
+                        </label>
+
+                        <select
+                            id="lessonSubject"
+                            name="subject"
+                            required
+                        >
+
+                            <option value="">
+                                Select subject
+                            </option>
+
+                            <option value="science">
+                                Science
+                            </option>
+
+                            <option value="mathematics">
+                                Mathematics
+                            </option>
+
+                            <option value="ict">
+                                ICT
+                            </option>
+
+                            <option value="english">
+                                English
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="lessonDuration">
+                            Duration
+                        </label>
+
+                        <select
+                            id="lessonDuration"
+                            name="duration"
+                            required
+                        >
+
+                            <option value="">
+                                Select duration
+                            </option>
+
+                            <option value="15">
+                                15 minutes
+                            </option>
+
+                            <option value="20">
+                                20 minutes
+                            </option>
+
+                            <option value="30">
+                                30 minutes
+                            </option>
+
+                            <option value="40">
+                                40 minutes
+                            </option>
+
+                            <option value="60">
+                                60 minutes
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="lessonDescription">
+                        Lesson Description
+                    </label>
+
+                    <textarea
+                        id="lessonDescription"
+                        name="description"
+                        rows="5"
+                        placeholder="Describe what students will learn..."
+                        required
+                    ></textarea>
+
+                </div>
+
+            </section>
+
+
+            <!-- LEARNING OBJECTIVES -->
+
+            <section class="form-section">
+
+                <div class="form-section-header">
+
+                    <span>
+                        02
+                    </span>
+
+                    <div>
+
+                        <h2>
+                            Learning Objectives
+                        </h2>
+
+                        <p>
+                            What should students be able
+                            to do after the lesson?
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="objectivesContainer"
+                    class="dynamic-fields"
+                >
+
+                    <div class="dynamic-field">
+
+                        <input
+                            type="text"
+                            name="objectives[]"
+                            placeholder="e.g. Identify the three states of matter"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            onclick="removeField(this)"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="add-field-btn"
+                    onclick="addObjective()"
+                >
+                    + Add Objective
+                </button>
+
+            </section>
+
+
+            <!-- LESSON CONTENT -->
+
+            <section class="form-section">
+
+                <div class="form-section-header">
+
+                    <span>
+                        03
+                    </span>
+
+                    <div>
+
+                        <h2>
+                            Lesson Content
+                        </h2>
+
+                        <p>
+                            Add the main learning material.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="lessonContent">
+                        Content
+                    </label>
+
+                    <textarea
+                        id="lessonContent"
+                        name="content"
+                        rows="12"
+                        placeholder="Write your lesson content here..."
+                        required
+                    ></textarea>
+
+                </div>
+
+            </section>
+
+
+            <!-- PRACTICAL CONNECTION -->
+
+            <section class="form-section">
+
+                <div class="form-section-header">
+
+                    <span>
+                        04
+                    </span>
+
+                    <div>
+
+                        <h2>
+                            Real-World Connection
+                        </h2>
+
+                        <p>
+                            Help students connect the concept
+                            to everyday life.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="realLifeConnection">
+                        How does this apply in real life?
+                    </label>
+
+                    <textarea
+                        id="realLifeConnection"
+                        name="real_life_connection"
+                        rows="6"
+                        placeholder="Explain how students can see or use this concept in real life..."
+                    ></textarea>
+
+                </div>
+
+            </section>
+
+
+            <!-- STATUS -->
+
+            <section class="form-section">
+
+                <div class="form-section-header">
+
+                    <span>
+                        05
+                    </span>
+
+                    <div>
+
+                        <h2>
+                            Publish
+                        </h2>
+
+                        <p>
+                            Choose what happens to your lesson.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="publish-options">
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="status"
+                            value="draft"
+                            checked
+                        >
+
+                        <span>
+
+                            <strong>
+                                Save as Draft
+                            </strong>
+
+                            <small>
+                                Students won't see it yet.
+                            </small>
+
+                        </span>
+
+                    </label>
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="status"
+                            value="published"
+                        >
+
+                        <span>
+
+                            <strong>
+                                Publish Lesson
+                            </strong>
+
+                            <small>
+                                Students can access it.
+                            </small>
+
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </section>
+
+
+            <!-- FORM ACTIONS -->
+
+            <div class="form-actions">
+
+                <a
+                    href="lessons.html"
+                    class="secondary-btn"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+                    Save Lesson
+                </button>
+
+            </div>
+
+        </form>
+
+    </main>
+
+
+    <footer>
+
+        <div class="footer-logo">
+            Fredu <span>Spark</span>
+        </div>
+
+        <p>
+            Learning beyond books.
+        </p>
+
+    </footer>
+
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

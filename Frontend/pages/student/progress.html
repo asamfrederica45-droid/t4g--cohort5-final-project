@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Progress | Fredu Spark</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <header class="student-navbar">
+
+        <a href="dashboard.html" class="logo">
+            <span>Fredu</span> Spark
+        </a>
+
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="subjects.html">Subjects</a>
+            <a href="lessons.html">Lessons</a>
+            <a href="challenge.html">Challenges</a>
+            <a href="progress.html" class="active">
+                My Progress
+            </a>
+        </nav>
+
+        <div class="student-profile">
+
+            <div class="profile-circle">
+                F
+            </div>
+
+            <span>Fredericka</span>
+
+            <button class="logout-btn" onclick="logout()">
+                Log Out
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="student-page">
+
+        <section class="page-header">
+
+            <div>
+
+                <p class="small-heading">
+                    MY LEARNING
+                </p>
+
+                <h1>
+                    My Progress
+                </h1>
+
+                <p>
+                    See what you have learned and the
+                    challenges you have completed.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- PROGRESS OVERVIEW -->
+
+        <section class="progress-overview">
+
+            <div class="progress-overview-card">
+
+                <div class="progress-big-number">
+                    60%
+                </div>
+
+                <div>
+
+                    <p class="small-heading">
+                        OVERALL PROGRESS
+                    </p>
+
+                    <h2>
+                        Keep going!
+                    </h2>
+
+                    <p>
+                        You are making great progress
+                        in your learning journey.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="progress-stat">
+
+                <strong>
+                    6
+                </strong>
+
+                <span>
+                    Activities Completed
+                </span>
+
+            </div>
+
+
+            <div class="progress-stat">
+
+                <strong>
+                    4
+                </strong>
+
+                <span>
+                    Lessons Completed
+                </span>
+
+            </div>
+
+
+            <div class="progress-stat">
+
+                <strong>
+                    2
+                </strong>
+
+                <span>
+                    Challenges Completed
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- SUBJECT PROGRESS -->
+
+        <section class="dashboard-section">
+
+            <div class="section-title">
+
+                <div>
+
+                    <p class="small-heading">
+                        SUBJECT PROGRESS
+                    </p>
+
+                    <h2>
+                        How you're doing
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="subject-progress-list">
+
+
+                <div class="subject-progress-item">
+
+                    <div class="subject-progress-title">
+
+                        <span>
+                            🧪 Science
+                        </span>
+
+                        <strong>
+                            75%
+                        </strong>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <div
+                            class="progress-fill"
+                            style="width: 75%;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="subject-progress-item">
+
+                    <div class="subject-progress-title">
+
+                        <span>
+                            📐 Mathematics
+                        </span>
+
+                        <strong>
+                            60%
+                        </strong>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <div
+                            class="progress-fill"
+                            style="width: 60%;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="subject-progress-item">
+
+                    <div class="subject-progress-title">
+
+                        <span>
+                            💻 ICT
+                        </span>
+
+                        <strong>
+                            45%
+                        </strong>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <div
+                            class="progress-fill"
+                            style="width: 45%;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="subject-progress-item">
+
+                    <div class="subject-progress-title">
+
+                        <span>
+                            ✍🏾 English
+                        </span>
+
+                        <strong>
+                            55%
+                        </strong>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <div
+                            class="progress-fill"
+                            style="width: 55%;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- COMPLETED ACTIVITIES -->
+
+        <section class="dashboard-section">
+
+            <div class="section-title">
+
+                <div>
+
+                    <p class="small-heading">
+                        COMPLETED ACTIVITIES
+                    </p>
+
+                    <h2>
+                        Your achievements
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="completed-list">
+
+
+                <div class="completed-item">
+
+                    <div class="completed-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            States of Matter
+                        </h3>
+
+                        <p>
+                            Science • Lesson
+                        </p>
+
+                    </div>
+
+                    <span>
+                        Completed
+                    </span>
+
+                </div>
+
+
+                <div class="completed-item">
+
+                    <div class="completed-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Build a Simple Water Filter
+                        </h3>
+
+                        <p>
+                            Science • Challenge
+                        </p>
+
+                    </div>
+
+                    <span>
+                        Completed
+                    </span>
+
+                </div>
+
+
+                <div class="completed-item">
+
+                    <div class="completed-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Fractions Around Us
+                        </h3>
+
+                        <p>
+                            Mathematics • Lesson
+                        </p>
+
+                    </div>
+
+                    <span>
+                        Completed
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- MOTIVATION -->
+
+        <section class="teacher-tip">
+
+            <div class="tip-icon">
+                ✦
+            </div>
+
+            <div>
+
+                <p class="small-heading">
+                    KEEP GOING
+                </p>
+
+                <h2>
+                    Every challenge is a new spark.
+                </h2>
+
+                <p>
+                    Keep exploring, keep asking questions
+                    and keep putting what you learn into practice.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <div class="footer-logo">
+            Fredu <span>Spark</span>
+        </div>
+
+        <p>
+            Learning beyond books.
+        </p>
+
+        <p class="copyright">
+            © 2026 Fredu Spark. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>
