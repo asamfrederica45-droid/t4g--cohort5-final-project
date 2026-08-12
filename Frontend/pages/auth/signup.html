@@ -1,11 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home page</title>
+
+    <title>Sign Up | Fredu Spark</title>
+
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-    
+
+<body class="auth-page">
+
+
+    <!-- ================= AUTH NAVIGATION ================= -->
+
+    <header class="auth-navbar">
+
+        <a href="../index.html" class="logo">
+            <span>Fredu</span> Spark
+        </a>
+
+        <a href="../index.html" class="back-link">
+            ← Back to Home
+        </a>
+
+    </header>
+
+
+    <!-- ================= SIGN UP ================= -->
+
+    <main class="auth-container">
+
+
+        <section class="auth-card signup-card">
+
+            <div class="auth-header">
+
+                <div class="auth-icon">
+                    ✦
+                </div>
+
+                <p class="small-heading">
+                    JOIN FREdu SPARK
+                </p>
+
+                <h1>
+                    Create your account
+                </h1>
+
+                <p>
+                    Start your journey beyond the books.
+                </p>
+
+            </div>
+
+
+            <!-- SIGNUP FORM -->
+
+            <form id="signupForm" class="auth-form">
+
+
+                <!-- Full Name -->
+
+                <div class="form-group">
+
+                    <label for="signupName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="signupName"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="signupEmail">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="signupEmail"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Role -->
+
+                <div class="form-group">
+
+                    <label>
+                        I am joining as a
+                    </label>
+
+                    <div class="role-selection">
+
+
+                        <!-- Student -->
+
+                        <label class="role-option">
+
+                            <input
+                                type="radio"
+                                name="role"
+                                value="student"
+                                required
+                            >
+
+                            <span class="role-option-content">
+
+                                <span class="role-option-icon">
+                                    🎓
+                                </span>
+
+                                <span>
+                                    <strong>
+                                        Student
+                                    </strong>
+
+                                    <small>
+                                        Learn and complete challenges
+                                    </small>
+                                </span>
+
+                            </span>
+
+                        </label>
+
+
+                        <!-- Teacher -->
+
+                        <label class="role-option">
+
+                            <input
+                                type="radio"
+                                name="role"
+                                value="teacher"
+                            >
+
+                            <span class="role-option-content">
+
+                                <span class="role-option-icon">
+                                    👩🏾‍🏫
+                                </span>
+
+                                <span>
+                                    <strong>
+                                        Teacher
+                                    </strong>
+
+                                    <small>
+                                        Create and manage learning
+                                    </small>
+                                </span>
+
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="signupPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="signupPassword"
+                        name="password"
+                        placeholder="Create a password"
+                        minlength="8"
+                        required
+                    >
+
+                    <small class="input-help">
+                        Password must be at least 8 characters.
+                    </small>
+
+                </div>
+
+
+                <!-- Confirm Password -->
+
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="Re-enter your password"
+                        minlength="8"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Terms -->
+
+                <div class="terms">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            required
+                        >
+
+                        <span>
+                            I agree to use Fredu Spark
+                            responsibly for learning.
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    class="primary-btn auth-submit"
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <!-- LOGIN -->
+
+            <div class="auth-switch">
+
+                <p>
+                    Already have an account?
+                    <a href="login.html">
+                        Log in
+                    </a>
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- AUTH SIDE -->
+
+        <section class="auth-side">
+
+            <div class="auth-side-content">
+
+                <div class="large-spark">
+                    ✦
+                </div>
+
+                <h2>
+                    One spark can change
+                    how you learn.
+                </h2>
+
+                <p>
+                    Whether you're a student ready to explore
+                    or a teacher ready to create, Fredu Spark
+                    brings learning to life.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="../js/script.js"></script>
+
 </body>
+
 </html>

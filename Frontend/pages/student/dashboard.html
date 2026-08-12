@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard | Fredu Spark</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <header class="student-navbar">
+
+        <a href="dashboard.html" class="logo">
+            <span>Fredu</span> Spark
+        </a>
+
+        <nav>
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="subjects.html">Subjects</a>
+            <a href="lessons.html">Lessons</a>
+            <a href="challenge.html">Challenges</a>
+            <a href="progress.html">My Progress</a>
+        </nav>
+
+        <div class="student-profile">
+
+            <div class="profile-circle">
+                F
+            </div>
+
+            <span>Fredericka</span>
+
+            <button class="logout-btn" onclick="logout()">
+                Log Out
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="student-dashboard">
+
+        <!-- WELCOME -->
+
+        <section class="dashboard-welcome">
+
+            <div>
+
+                <p class="small-heading">
+                    STUDENT DASHBOARD
+                </p>
+
+                <h1>
+                    Hey Fredericka! 👋🏾
+                </h1>
+
+                <p>
+                    Ready to learn something new today?
+                    Choose a lesson or take on a challenge.
+                </p>
+
+            </div>
+
+            <div class="welcome-spark">
+                ✦
+            </div>
+
+        </section>
+
+
+        <!-- PROGRESS -->
+
+        <section class="student-progress-card">
+
+            <div>
+
+                <p class="small-heading">
+                    YOUR PROGRESS
+                </p>
+
+                <h2>
+                    Keep your spark going!
+                </h2>
+
+                <p>
+                    You have completed 6 learning activities.
+                </p>
+
+            </div>
+
+            <div class="progress-circle">
+                <strong>60%</strong>
+                <span>Complete</span>
+            </div>
+
+        </section>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <section class="dashboard-section">
+
+            <div class="section-title">
+
+                <div>
+                    <p class="small-heading">
+                        EXPLORE
+                    </p>
+
+                    <h2>
+                        What do you want to learn?
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="student-action-grid">
+
+                <a href="subjects.html" class="student-action-card">
+
+                    <div class="action-icon">
+                        📚
+                    </div>
+
+                    <h3>
+                        Explore Subjects
+                    </h3>
+
+                    <p>
+                        Discover lessons across different
+                        subjects.
+                    </p>
+
+                    <span>
+                        Explore →
+                    </span>
+
+                </a>
+
+
+                <a href="lessons.html" class="student-action-card">
+
+                    <div class="action-icon">
+                        📖
+                    </div>
+
+                    <h3>
+                        Browse Lessons
+                    </h3>
+
+                    <p>
+                        Learn concepts and connect them
+                        to real life.
+                    </p>
+
+                    <span>
+                        View Lessons →
+                    </span>
+
+                </a>
+
+
+                <a href="challenge.html" class="student-action-card">
+
+                    <div class="action-icon">
+                        🧪
+                    </div>
+
+                    <h3>
+                        Take a Challenge
+                    </h3>
+
+                    <p>
+                        Put your knowledge into practice.
+                    </p>
+
+                    <span>
+                        Start Challenge →
+                    </span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- RECOMMENDED -->
+
+        <section class="dashboard-section">
+
+            <div class="section-title">
+
+                <div>
+                    <p class="small-heading">
+                        RECOMMENDED FOR YOU
+                    </p>
+
+                    <h2>
+                        Try something practical
+                    </h2>
+                </div>
+
+                <a href="challenge.html" class="view-all">
+                    View all →
+                </a>
+
+            </div>
+
+
+            <div class="challenge-grid">
+
+                <article class="student-challenge-card">
+
+                    <span class="difficulty">
+                        EASY
+                    </span>
+
+                    <div class="challenge-card-icon">
+                        🧪
+                    </div>
+
+                    <p class="subject-category">
+                        SCIENCE
+                    </p>
+
+                    <h3>
+                        Build a Simple Water Filter
+                    </h3>
+
+                    <p>
+                        Explore how different materials
+                        can be used to filter water.
+                    </p>
+
+                    <div class="challenge-meta">
+
+                        <span>
+                            ⏱ 30 min
+                        </span>
+
+                        <span>
+                            ⭐ Beginner
+                        </span>
+
+                    </div>
+
+                    <a href="challenge.html" class="primary-btn">
+                        Start Challenge
+                    </a>
+
+                </article>
+
+
+                <article class="student-challenge-card">
+
+                    <span class="difficulty">
+                        MEDIUM
+                    </span>
+
+                    <div class="challenge-card-icon">
+                        📐
+                    </div>
+
+                    <p class="subject-category">
+                        MATHEMATICS
+                    </p>
+
+                    <h3>
+                        Mathematics Around Me
+                    </h3>
+
+                    <p>
+                        Find examples of mathematical
+                        shapes and measurements around you.
+                    </p>
+
+                    <div class="challenge-meta">
+
+                        <span>
+                            ⏱ 20 min
+                        </span>
+
+                        <span>
+                            ⭐ Intermediate
+                        </span>
+
+                    </div>
+
+                    <a href="challenge.html" class="primary-btn">
+                        Start Challenge
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-logo">
+            Fredu <span>Spark</span>
+        </div>
+
+        <p>
+            Learning beyond books.
+        </p>
+
+        <p class="copyright">
+            © 2026 Fredu Spark. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

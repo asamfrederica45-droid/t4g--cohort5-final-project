@@ -1,11 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home page</title>
+
+    <title>Log In | Fredu Spark</title>
+
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-    
+
+<body class="auth-page">
+
+
+    <!-- ================= AUTH NAVIGATION ================= -->
+
+    <header class="auth-navbar">
+
+        <a href="../index.html" class="logo">
+            <span>Fredu</span> Spark
+        </a>
+
+        <a href="../index.html" class="back-link">
+            ← Back to Home
+        </a>
+
+    </header>
+
+
+    <!-- ================= LOGIN ================= -->
+
+    <main class="auth-container">
+
+        <section class="auth-card">
+
+            <div class="auth-header">
+
+                <div class="auth-icon">
+                    ✦
+                </div>
+
+                <p class="small-heading">
+                    WELCOME BACK
+                </p>
+
+                <h1>
+                    Log in to Fredu Spark
+                </h1>
+
+                <p>
+                    Continue your learning journey.
+                </p>
+
+            </div>
+
+
+            <!-- LOGIN FORM -->
+
+            <form id="loginForm" class="auth-form">
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="loginEmail">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <div class="label-row">
+
+                        <label for="loginPassword">
+                            Password
+                        </label>
+
+                        <a href="#" class="forgot-link">
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Role -->
+
+                <div class="form-group">
+
+                    <label for="loginRole">
+                        I am logging in as
+                    </label>
+
+                    <select
+                        id="loginRole"
+                        name="role"
+                        required
+                    >
+
+                        <option value="">
+                            Select your role
+                        </option>
+
+                        <option value="student">
+                            Student
+                        </option>
+
+                        <option value="teacher">
+                            Teacher
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    class="primary-btn auth-submit"
+                >
+                    Log In
+                </button>
+
+            </form>
+
+
+            <!-- SIGN UP -->
+
+            <div class="auth-switch">
+
+                <p>
+                    Don't have an account?
+                    <a href="signup.html">
+                        Create one
+                    </a>
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- AUTH SIDE MESSAGE -->
+
+        <section class="auth-side">
+
+            <div class="auth-side-content">
+
+                <div class="large-spark">
+                    ✦
+                </div>
+
+                <h2>
+                    Learning doesn't stop
+                    at the textbook.
+                </h2>
+
+                <p>
+                    Discover lessons and challenges designed
+                    to help you learn by doing.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="../js/script.js"></script>
+
 </body>
+
 </html>

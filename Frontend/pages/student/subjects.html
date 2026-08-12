@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Subjects | Fredu Spark</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <header class="student-navbar">
+
+        <a href="dashboard.html" class="logo">
+            <span>Fredu</span> Spark
+        </a>
+
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="subjects.html" class="active">Subjects</a>
+            <a href="lessons.html">Lessons</a>
+            <a href="challenge.html">Challenges</a>
+            <a href="progress.html">My Progress</a>
+        </nav>
+
+        <div class="student-profile">
+
+            <div class="profile-circle">
+                F
+            </div>
+
+            <span>Fredericka</span>
+
+            <button class="logout-btn" onclick="logout()">
+                Log Out
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="student-page">
+
+        <section class="page-header">
+
+            <div>
+
+                <p class="small-heading">
+                    EXPLORE
+                </p>
+
+                <h1>
+                    Subjects
+                </h1>
+
+                <p>
+                    Choose a subject and discover lessons
+                    designed to help you learn by doing.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- SEARCH -->
+
+        <section class="content-tools">
+
+            <div class="search-box">
+
+                <span>🔍</span>
+
+                <input
+                    type="text"
+                    id="studentSubjectSearch"
+                    placeholder="Search subjects..."
+                    onkeyup="searchStudentSubjects()"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- SUBJECTS -->
+
+        <section class="subjects-grid">
+
+
+            <article class="subject-card">
+
+                <div class="subject-icon">
+                    🧪
+                </div>
+
+                <p class="subject-category">
+                    SCIENCE
+                </p>
+
+                <h2>
+                    Science
+                </h2>
+
+                <p>
+                    Explore scientific concepts through
+                    experiments and practical activities.
+                </p>
+
+                <div class="subject-stats">
+
+                    <span>
+                        📖 4 Lessons
+                    </span>
+
+                    <span>
+                        🧪 3 Challenges
+                    </span>
+
+                </div>
+
+                <a href="lessons.html" class="subject-link">
+                    Explore Science →
+                </a>
+
+            </article>
+
+
+            <article class="subject-card">
+
+                <div class="subject-icon">
+                    📐
+                </div>
+
+                <p class="subject-category">
+                    MATHEMATICS
+                </p>
+
+                <h2>
+                    Mathematics
+                </h2>
+
+                <p>
+                    Discover how mathematics connects
+                    to everyday life.
+                </p>
+
+                <div class="subject-stats">
+
+                    <span>
+                        📖 3 Lessons
+                    </span>
+
+                    <span>
+                        🧪 2 Challenges
+                    </span>
+
+                </div>
+
+                <a href="lessons.html" class="subject-link">
+                    Explore Mathematics →
+                </a>
+
+            </article>
+
+
+            <article class="subject-card">
+
+                <div class="subject-icon">
+                    💻
+                </div>
+
+                <p class="subject-category">
+                    ICT
+                </p>
+
+                <h2>
+                    ICT
+                </h2>
+
+                <p>
+                    Learn digital skills and discover
+                    how technology can solve problems.
+                </p>
+
+                <div class="subject-stats">
+
+                    <span>
+                        📖 3 Lessons
+                    </span>
+
+                    <span>
+                        🧪 2 Challenges
+                    </span>
+
+                </div>
+
+                <a href="lessons.html" class="subject-link">
+                    Explore ICT →
+                </a>
+
+            </article>
+
+
+            <article class="subject-card">
+
+                <div class="subject-icon">
+                    ✍🏾
+                </div>
+
+                <p class="subject-category">
+                    ENGLISH
+                </p>
+
+                <h2>
+                    English
+                </h2>
+
+                <p>
+                    Develop communication, reading and
+                    creative thinking skills.
+                </p>
+
+                <div class="subject-stats">
+
+                    <span>
+                        📖 2 Lessons
+                    </span>
+
+                    <span>
+                        🧪 1 Challenge
+                    </span>
+
+                </div>
+
+                <a href="lessons.html" class="subject-link">
+                    Explore English →
+                </a>
+
+            </article>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-logo">
+            Fredu <span>Spark</span>
+        </div>
+
+        <p>
+            Learning beyond books.
+        </p>
+
+        <p class="copyright">
+            © 2026 Fredu Spark. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

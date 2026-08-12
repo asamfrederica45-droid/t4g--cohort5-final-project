@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Teacher Dashboard | Fredu Spark</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <header class="teacher-navbar">
+
+        <div class="logo">
+            <span>Fredu</span> Spark
+        </div>
+
+        <nav>
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="subjects.html">Subjects</a>
+            <a href="lessons.html">Lessons</a>
+            <a href="challenges.html">Challenges</a>
+        </nav>
+
+        <div class="teacher-profile">
+            <div class="profile-circle">
+                F
+            </div>
+
+            <span>Fredericka</span>
+
+            <button class="logout-btn" onclick="logout()">
+                Log Out
+            </button>
+        </div>
+
+    </header>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="teacher-dashboard">
+
+        <!-- Welcome -->
+
+        <section class="dashboard-welcome">
+
+            <div>
+                <p class="small-heading">
+                    TEACHER DASHBOARD
+                </p>
+
+                <h1>
+                    Welcome back, Fredericka! 👋🏾
+                </h1>
+
+                <p>
+                    Create meaningful learning experiences
+                    that take students beyond the textbook.
+                </p>
+            </div>
+
+            <div class="welcome-spark">
+                ✦
+            </div>
+
+        </section>
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="dashboard-stats">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📚
+                </div>
+
+                <div>
+                    <p>Subjects</p>
+                    <h2>4</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📖
+                </div>
+
+                <div>
+                    <p>Lessons</p>
+                    <h2>12</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🧪
+                </div>
+
+                <div>
+                    <p>Challenges</p>
+                    <h2>8</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👨🏾‍🎓
+                </div>
+
+                <div>
+                    <p>Students</p>
+                    <h2>24</h2>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= QUICK ACTIONS ================= -->
+
+        <section class="dashboard-section">
+
+            <div class="section-title">
+
+                <div>
+                    <p class="small-heading">
+                        QUICK ACTIONS
+                    </p>
+
+                    <h2>
+                        What would you like to do?
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="action-grid">
+
+                <!-- Create Lesson -->
+
+                <a href="create-lesson.html" class="action-card">
+
+                    <div class="action-icon">
+                        +
+                    </div>
+
+                    <div>
+                        <h3>
+                            Create a Lesson
+                        </h3>
+
+                        <p>
+                            Add a new lesson and learning objective
+                            for your students.
+                        </p>
+                    </div>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+                <!-- Create Challenge -->
+
+                <a href="create-challenge.html" class="action-card">
+
+                    <div class="action-icon">
+                        ✦
+                    </div>
+
+                    <div>
+                        <h3>
+                            Create a Challenge
+                        </h3>
+
+                        <p>
+                            Turn a lesson into a practical
+                            classroom activity.
+                        </p>
+                    </div>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+                <!-- Manage Lessons -->
+
+                <a href="lessons.html" class="action-card">
+
+                    <div class="action-icon">
+                        📖
+                    </div>
+
+                    <div>
+                        <h3>
+                            Manage Lessons
+                        </h3>
+
+                        <p>
+                            View, edit and manage your existing
+                            lessons.
+                        </p>
+                    </div>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+                <!-- Manage Challenges -->
+
+                <a href="challenges.html" class="action-card">
+
+                    <div class="action-icon">
+                        🧪
+                    </div>
+
+                    <div>
+                        <h3>
+                            Manage Challenges
+                        </h3>
+
+                        <p>
+                            View and update your classroom
+                            challenges.
+                        </p>
+                    </div>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RECENT ACTIVITY ================= -->
+
+        <section class="dashboard-section">
+
+            <div class="section-title">
+
+                <div>
+                    <p class="small-heading">
+                        RECENT ACTIVITY
+                    </p>
+
+                    <h2>
+                        Your latest content
+                    </h2>
+                </div>
+
+                <a href="lessons.html" class="view-all">
+                    View all →
+                </a>
+
+            </div>
+
+
+            <div class="activity-list">
+
+                <!-- Activity 1 -->
+
+                <div class="activity-item">
+
+                    <div class="activity-icon">
+                        📖
+                    </div>
+
+                    <div class="activity-info">
+
+                        <h3>
+                            States of Matter
+                        </h3>
+
+                        <p>
+                            Science • Lesson
+                        </p>
+
+                    </div>
+
+                    <span class="activity-status">
+                        Published
+                    </span>
+
+                </div>
+
+
+                <!-- Activity 2 -->
+
+                <div class="activity-item">
+
+                    <div class="activity-icon">
+                        🧪
+                    </div>
+
+                    <div class="activity-info">
+
+                        <h3>
+                            Build a Simple Water Filter
+                        </h3>
+
+                        <p>
+                            Science • Classroom Challenge
+                        </p>
+
+                    </div>
+
+                    <span class="activity-status">
+                        Published
+                    </span>
+
+                </div>
+
+
+                <!-- Activity 3 -->
+
+                <div class="activity-item">
+
+                    <div class="activity-icon">
+                        📖
+                    </div>
+
+                    <div class="activity-info">
+
+                        <h3>
+                            Introduction to Fractions
+                        </h3>
+
+                        <p>
+                            Mathematics • Lesson
+                        </p>
+
+                    </div>
+
+                    <span class="activity-status">
+                        Draft
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TEACHER TIP ================= -->
+
+        <section class="teacher-tip">
+
+            <div class="tip-icon">
+                ✦
+            </div>
+
+            <div>
+
+                <p class="small-heading">
+                    FREdu SPARK TIP
+                </p>
+
+                <h2>
+                    Help students connect learning to real life.
+                </h2>
+
+                <p>
+                    When creating a challenge, think about how
+                    students can use the concept outside the classroom.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="footer-logo">
+            Fredu <span>Spark</span>
+        </div>
+
+        <p>
+            Learning beyond books.
+        </p>
+
+        <p class="copyright">
+            © 2026 Fredu Spark. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>
