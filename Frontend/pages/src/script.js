@@ -16,7 +16,7 @@ function logout() {
 
     if (confirmLogout) {
 
-        window.location.href = "../index.html";
+        window.location.href = "../../index.html";
 
     }
 
@@ -639,3 +639,135 @@ window.addEventListener(
 
     }
 );
+
+
+/* =========================================================
+   20. AUTH FORM DEMO SUBMIT
+   ========================================================= */
+
+const loginForm =
+    document.getElementById("loginForm");
+
+if (loginForm) {
+
+    loginForm.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        alert("Logged in successfully!");
+
+    });
+
+}
+
+const signupForm =
+    document.getElementById("signupForm");
+
+if (signupForm) {
+
+    signupForm.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        const password =
+            document.getElementById("signupPassword");
+
+        const confirmPassword =
+            document.getElementById("confirmPassword");
+
+        if (
+            password &&
+            confirmPassword &&
+            password.value !== confirmPassword.value
+        ) {
+
+            alert("Passwords do not match.");
+            return;
+
+        }
+
+        alert("Account created successfully!");
+
+    });
+
+}
+
+
+/* =========================================================
+   21. SCROLL REVEAL ANIMATIONS
+   ========================================================= */
+
+(function () {
+
+    const revealItems =
+        document.querySelectorAll(".reveal");
+
+    if (!revealItems.length) {
+        return;
+    }
+
+    if (!("IntersectionObserver" in window)) {
+
+        revealItems.forEach(function (item) {
+            item.classList.add("is-visible");
+        });
+
+        return;
+
+    }
+
+    const observer = new IntersectionObserver(
+        function (entries) {
+
+            entries.forEach(function (entry, index) {
+
+                if (entry.isIntersecting) {
+
+                    setTimeout(function () {
+                        entry.target.classList.add("is-visible");
+                    }, index * 90);
+
+                    observer.unobserve(entry.target);
+
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.15,
+            rootMargin: "0px 0px -60px 0px"
+        }
+    );
+
+    revealItems.forEach(function (item) {
+        observer.observe(item);
+    });
+
+})();
+
+
+/* =========================================================
+   22. NAVBAR SCROLL SHADOW
+   ========================================================= */
+
+(function () {
+
+    const navbar =
+        document.querySelector(".navbar");
+
+    if (!navbar) {
+        return;
+    }
+
+    window.addEventListener("scroll", function () {
+
+        if (window.scrollY > 12) {
+            navbar.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.06)";
+        } else {
+            navbar.style.boxShadow = "none";
+        }
+
+    });
+
+})();
