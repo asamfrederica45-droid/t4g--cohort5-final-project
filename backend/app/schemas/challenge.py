@@ -8,7 +8,7 @@ class ChallengeBase(BaseModel):
     materials_needed: Optional[Union[str, List[str]]] = None
     real_life_application: Optional[str] = None
     reflection_questions: Optional[Union[str, List[str]]] = None
-    difficulty: Optional[str] = None
+    difficulty_level: Optional[str] = None
     lesson_id: int
     @field_validator("instructions", "materials_needed", "reflection_questions")
     @classmethod
@@ -26,7 +26,7 @@ class ChallengeUpdate(BaseModel):
     materials_needed: Optional[Union[str, List[str]]] = None
     real_life_application: Optional[str] = None
     reflection_questions: Optional[Union[str, List[str]]] = None
-    difficulty: Optional[str] = None
+    difficulty_level: Optional[str] = None
     lesson_id: Optional[int] = None
 
     @field_validator("instructions", "materials_needed", "reflection_questions")
@@ -43,7 +43,7 @@ class ChallengeOut(BaseModel):
     materials_needed: Optional[str] = None
     real_life_application: Optional[str] = None
     reflection_questions: Optional[str] = None
-    difficulty: Optional[str] = None
+    difficulty_level: Optional[str] = None
     lesson_id: int
 
         

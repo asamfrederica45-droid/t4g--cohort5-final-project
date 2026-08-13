@@ -8,48 +8,71 @@
    1. LOGOUT
    ========================================================= */
 
+    
 async function loadSubjects() {
     try {
-        const response = await fetch("http://127.0.0.1:8000/subjects");
-        const subjects = await response.json();
+        const [subjectsRes, lessonsRes] = await Promise.all([
+            fetch("http://127.0.0.1:8000/subjects"),
+            fetch("http://127.0.0.1:8000/lessons/")
+        ]);
+        const subjects = await subjectsRes.json();
+        const lessons = await lessonsRes.json();
 
         const grid = document.querySelector(".subjects-grid");
-        if (!grid) return; 
+        if (!grid) return;
         grid.innerHTML = "";
 
         subjects.forEach(subject => {
+            const lessonCount = lessons.filter(l => l.subject_id === subject.id).length;
+
             const card = document.createElement("article");
             card.classList.add("subject-card");
-
             card.innerHTML = `
                 <div class="subject-icon">📘</div>
                 <p class="subject-category">${subject.name.toUpperCase()}</p>
                 <h2>${subject.name}</h2>
                 <p>${subject.description ? subject.description : "No description yet."}</p>
+                <div class="subject-stats">
+                    <span>📖 ${lessonCount} Lesson${lessonCount !== 1 ? "s" : ""}</span>
+                </div>
+                <a href="lessons.html?subject=${subject.id}" class="subject-link">
+                    Explore ${subject.name} →
+                </a>
             `;
-
             grid.appendChild(card);
         });
-
     } catch (error) {
         console.error("Error fetching subjects:", error);
     }
 }
 
-async function loadLessons() {
+        
+
+    async function loadLessons() {
     try {
         const response = await fetch("http://127.0.0.1:8000/lessons/");
         const lessons = await response.json();
 
         const grid = document.querySelector(".lesson-grid");
-        if (!grid) return; // not on this page, skip safely
+        if (!grid) return;
+
+        const params = new URLSearchParams(window.location.search);
+        const subjectId = params.get("subject");
+
+        const filteredLessons = subjectId
+            ? lessons.filter(l => l.subject_id === parseInt(subjectId))
+            : lessons;
 
         grid.innerHTML = "";
 
-        lessons.forEach(lesson => {
+        if (filteredLessons.length === 0) {
+            grid.innerHTML = "<p>No lessons yet for this subject.</p>";
+            return;
+        }
+
+        filteredLessons.forEach(lesson => {
             const card = document.createElement("article");
             card.classList.add("lesson-card");
-
             card.innerHTML = `
                 <div class="lesson-image science-bg"></div>
                 <div class="lesson-content">
@@ -58,10 +81,8 @@ async function loadLessons() {
                     <p>${lesson.description ? lesson.description : "No description yet."}</p>
                 </div>
             `;
-
             grid.appendChild(card);
         });
-
     } catch (error) {
         console.error("Error fetching lessons:", error);
     }
@@ -241,28 +262,144 @@ function showSubjectMenu(subject) {
    7. ADD SUBJECT
    ========================================================= */
 
-function openSubjectForm() {
 
-    const subjectName =
-        prompt(
-            "Enter the name of the new subject:"
+        async function openSubjectForm() {
+
+    const subjectName = prompt(
+        "Enter the name of the new subject:"
+    );
+
+    if (subjectName === null || subjectName.trim() === "") {
+        return;
+    }
+
+    const description = prompt(
+        "Enter a description for the subject:"
+    );
+
+    try {
+
+        const response = await fetch(
+            "http://127.0.0.1:8000/subjects/",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    name: subjectName.trim(),
+                    description: description
+                        ? description.trim()
+                        : null
+                })
+            }
         );
 
-    if (
-        subjectName !== null &&
-        subjectName.trim() !== ""
-    ) {
+        if (!response.ok) {
+            throw new Error("Failed to create subject");
+        }
+
+        const newSubject = await response.json();
 
         alert(
-            subjectName +
-            " has been added."
+            newSubject.name +
+            " has been added successfully!"
+        );
+
+        loadSubjects();
+
+    } catch (error) {
+
+        console.error(
+            "Error creating subject:",
+            error
+        );
+
+        alert(
+            "Could not add the subject."
         );
 
     }
+}
+async function loadChallengePage() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
 
+    const gridView = document.getElementById("challengeGridView");
+    const detailView = document.getElementById("challengeDetailView");
+    if (!gridView || !detailView) return;
+
+    if (!id) {
+        // GRID VIEW
+        gridView.style.display = "block";
+        detailView.style.display = "none";
+
+        try {
+            const response = await fetch("http://127.0.0.1:8000/challenges/");
+            const challenges = await response.json();
+            const grid = document.getElementById("challengesGrid");
+            grid.innerHTML = "";
+
+            challenges.forEach(c => {
+                const card = document.createElement("article");
+                card.classList.add("student-challenge-card");
+                card.innerHTML = `
+                    <span class="difficulty">${c.difficulty_level ? c.difficulty_level.toUpperCase() : "EASY"}</span>
+                    <div class="challenge-card-icon">🧪</div>
+                    <h3>${c.title}</h3>
+                    <p>${c.real_life_application ? c.real_life_application : "No description yet."}</p>
+                    <a href="challenge.html?id=${c.id}" class="primary-btn">Start Challenge</a>
+                `;
+                grid.appendChild(card);
+            });
+        } catch (error) {
+            console.error("Error fetching challenges:", error);
+        }
+
+    } else {
+        // DETAIL VIEW
+        gridView.style.display = "none";
+        detailView.style.display = "block";
+
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/challenges/${id}`);
+            const c = await response.json();
+
+            document.getElementById("challengeTitle").textContent = c.title;
+            document.getElementById("challengeDifficulty").textContent = c.difficulty_level ? c.difficulty_level.toUpperCase() : "EASY";
+            document.getElementById("challengeRealLife").textContent = c.real_life_application || "No info yet.";
+
+            const materialsList = document.getElementById("challengeMaterials");
+            if (c.materials_needed) {
+                materialsList.innerHTML = c.materials_needed
+                    .split("\n").map(item => `<li><span>✓</span> ${item}</li>`).join("");
+            }
+
+            const instructionsDiv = document.getElementById("challengeInstructions");
+            if (c.instructions) {
+                instructionsDiv.innerHTML = c.instructions
+                    .split("\n").map((step, i) => `
+                        <div class="instruction"><span>${i + 1}</span><p>${step}</p></div>
+                    `).join("");
+            }
+
+            const reflectionDiv = document.getElementById("challengeReflection");
+            if (c.reflection_questions) {
+                reflectionDiv.innerHTML = c.reflection_questions
+                    .split("\n").map(q => `<p>${q}</p>`).join("");
+            }
+
+        } catch (error) {
+            console.error("Error loading challenge:", error);
+        }
+    }
 }
 
-
+document.addEventListener("DOMContentLoaded", () => {
+    loadChallengePage();
+});
 /* =========================================================
    8. ADD LESSON OBJECTIVE
    ========================================================= */

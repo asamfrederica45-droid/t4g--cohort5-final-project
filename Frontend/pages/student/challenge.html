@@ -46,54 +46,73 @@
 
 
     <!-- MAIN -->
+     <main class="challenge-page">
 
-    <main class="challenge-page">
+    <!-- GRID VIEW (shown when no ?id in URL) -->
+    <section id="challengeGridView">
+        <div class="challenge-grid" id="challengesGrid"></div>
+    </section>
 
-        <!-- CHALLENGE HEADER -->
+    <!-- DETAIL VIEW (shown when ?id=X is in URL) -->
+    <section id="challengeDetailView" style="display:none;">
 
         <section class="challenge-header">
-
             <div>
-
-                <span class="difficulty">
-                    EASY
-                </span>
-
-                <p class="subject-category">
-                    SCIENCE
-                </p>
-
-                <h1>
-                    Build a Simple Water Filter
-                </h1>
-
-                <p>
-                    Put your knowledge of materials and
-                    filtration into practice.
-                </p>
-
-                <div class="challenge-meta">
-
-                    <span>
-                        ⏱ 30 minutes
-                    </span>
-
-                    <span>
-                        ⭐ Beginner
-                    </span>
-
-                </div>
-
+                <span class="difficulty" id="challengeDifficulty">EASY</span>
+                <h1 id="challengeTitle">Loading...</h1>
             </div>
-
-            <div class="challenge-big-icon">
-                🧪
-            </div>
-
+            <div class="challenge-big-icon">🧪</div>
         </section>
 
+        <section class="challenge-layout">
+            <div class="challenge-main-content">
 
-        <!-- CHALLENGE CONTENT -->
+                <article class="challenge-section">
+                    <p class="small-heading">01 — MATERIALS</p>
+                    <h2>What do you need?</h2>
+                    <ul class="materials-list" id="challengeMaterials"></ul>
+                </article>
+
+                <article class="challenge-section">
+                    <p class="small-heading">02 — INSTRUCTIONS</p>
+                    <h2>Let's do it!</h2>
+                    <div id="challengeInstructions"></div>
+                </article>
+
+                <article class="real-life-card">
+                    <p class="small-heading">REAL-LIFE CONNECTION</p>
+                    <h2>Where can you see this concept?</h2>
+                    <p id="challengeRealLife"></p>
+                </article>
+
+                <article class="challenge-section">
+                    <p class="small-heading">03 — REFLECTION</p>
+                    <h2>Think about what you did.</h2>
+                    <div id="challengeReflection"></div>
+                </article>
+
+            </div>
+
+            <aside class="challenge-sidebar">
+                <div class="challenge-progress">
+                    <p class="small-heading">YOUR PROGRESS</p>
+                    <div class="challenge-progress-bar">
+                        <div class="challenge-progress-fill"></div>
+                    </div>
+                    <p>0% completed</p>
+                </div>
+                <button class="primary-btn complete-btn" onclick="completeChallenge()">
+                    Mark Challenge Complete
+                </button>
+                <a href="challenge.html" class="secondary-btn">← Back to Challenges</a>
+            </aside>
+        </section>
+
+    </section>
+
+</main>
+
+  <!-- CHALLENGE CONTENT -->
 
         <section class="challenge-layout">
 
