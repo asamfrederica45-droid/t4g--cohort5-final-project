@@ -10,7 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Create Lesson | Fredu Spark</title>
+    <title>My Challenges | Fredu Spark</title>
 
     <link
         rel="stylesheet"
@@ -44,14 +44,14 @@
                 Subjects
             </a>
 
-            <a
-                href="lessons.html"
-                class="active"
-            >
+            <a href="lessons.html">
                 Lessons
             </a>
 
-            <a href="challenges.html">
+            <a
+                href="challenges.html"
+                class="active"
+            >
                 Challenges
             </a>
 
@@ -82,438 +82,367 @@
 
     <!-- MAIN -->
 
-    <main class="form-page">
+    <main class="teacher-page">
 
 
-        <div class="form-page-header">
+        <!-- HEADER -->
+
+        <section class="page-header">
+
+            <div>
+
+                <p class="small-heading">
+                    CONTENT MANAGEMENT
+                </p>
+
+                <h1>
+                    My Challenges
+                </h1>
+
+                <p>
+                    View, edit or remove the classroom
+                    challenges you have created.
+                </p>
+
+            </div>
 
             <a
-                href="lessons.html"
-                class="back-link"
+                href="create-challenge.html"
+                class="primary-btn"
             >
-                ← Back to Lessons
+                + Create Challenge
             </a>
 
-            <p class="small-heading">
-                LESSON CREATOR
-            </p>
+        </section>
 
-            <h1>
-                Create a New Lesson
-            </h1>
+
+        <!-- SEARCH -->
+
+        <section class="content-tools">
+
+            <div class="search-box">
+
+                <span>🔍</span>
+
+                <input
+                    type="text"
+                    id="challengeSearch"
+                    placeholder="Search challenges..."
+                    onkeyup="searchChallenges()"
+                >
+
+            </div>
+
+
+            <select id="teacherChallengeSubjectFilter">
+
+                <option value="all">
+                    All Subjects
+                </option>
+
+                <option value="science">
+                    Science
+                </option>
+
+                <option value="mathematics">
+                    Mathematics
+                </option>
+
+                <option value="ict">
+                    ICT
+                </option>
+
+                <option value="english">
+                    English
+                </option>
+
+            </select>
+
+        </section>
+
+
+        <!-- CHALLENGES -->
+
+        <section class="teacher-challenge-grid">
+
+
+            <article class="teacher-challenge-card">
+
+                <div class="teacher-challenge-top">
+
+                    <span class="difficulty">
+                        EASY
+                    </span>
+
+                    <button
+                        class="more-btn"
+                        onclick="showSubjectMenu('science')"
+                    >
+                        ⋮
+                    </button>
+
+                </div>
+
+                <div class="challenge-card-icon">
+                    🧪
+                </div>
+
+                <p class="subject-category">
+                    SCIENCE
+                </p>
+
+                <h2>
+                    Build a Simple Water Filter
+                </h2>
+
+                <p>
+                    Explore how different materials
+                    can be used to filter water.
+                </p>
+
+                <div class="challenge-meta">
+
+                    <span>
+                        ⏱ 30 min
+                    </span>
+
+                    <span>
+                        📖 States of Matter
+                    </span>
+
+                </div>
+
+                <div class="card-actions">
+
+                    <button
+                        class="secondary-btn"
+                        onclick="viewChallenge(1)"
+                    >
+                        View
+                    </button>
+
+                    <button
+                        class="secondary-btn"
+                        onclick="editChallenge(1)"
+                    >
+                        Edit
+                    </button>
+
+                    <button
+                        class="delete-btn"
+                        onclick="deleteChallenge(1)"
+                    >
+                        Delete
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <article class="teacher-challenge-card">
+
+                <div class="teacher-challenge-top">
+
+                    <span class="difficulty medium">
+                        MEDIUM
+                    </span>
+
+                    <button
+                        class="more-btn"
+                        onclick="showSubjectMenu('mathematics')"
+                    >
+                        ⋮
+                    </button>
+
+                </div>
+
+                <div class="challenge-card-icon">
+                    📐
+                </div>
+
+                <p class="subject-category">
+                    MATHEMATICS
+                </p>
+
+                <h2>
+                    Mathematics Around Me
+                </h2>
+
+                <p>
+                    Find examples of mathematical
+                    shapes and measurements around you.
+                </p>
+
+                <div class="challenge-meta">
+
+                    <span>
+                        ⏱ 20 min
+                    </span>
+
+                    <span>
+                        📖 Fractions Around Us
+                    </span>
+
+                </div>
+
+                <div class="card-actions">
+
+                    <button
+                        class="secondary-btn"
+                        onclick="viewChallenge(2)"
+                    >
+                        View
+                    </button>
+
+                    <button
+                        class="secondary-btn"
+                        onclick="editChallenge(2)"
+                    >
+                        Edit
+                    </button>
+
+                    <button
+                        class="delete-btn"
+                        onclick="deleteChallenge(2)"
+                    >
+                        Delete
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <article class="teacher-challenge-card">
+
+                <div class="teacher-challenge-top">
+
+                    <span class="difficulty">
+                        EASY
+                    </span>
+
+                    <button
+                        class="more-btn"
+                        onclick="showSubjectMenu('ict')"
+                    >
+                        ⋮
+                    </button>
+
+                </div>
+
+                <div class="challenge-card-icon">
+                    💻
+                </div>
+
+                <p class="subject-category">
+                    ICT
+                </p>
+
+                <h2>
+                    Design a Simple Flowchart
+                </h2>
+
+                <p>
+                    Practice breaking a daily task into
+                    clear step-by-step instructions.
+                </p>
+
+                <div class="challenge-meta">
+
+                    <span>
+                        ⏱ 25 min
+                    </span>
+
+                    <span>
+                        📖 Introduction to Algorithms
+                    </span>
+
+                </div>
+
+                <div class="card-actions">
+
+                    <button
+                        class="secondary-btn"
+                        onclick="viewChallenge(3)"
+                    >
+                        View
+                    </button>
+
+                    <button
+                        class="secondary-btn"
+                        onclick="editChallenge(3)"
+                    >
+                        Edit
+                    </button>
+
+                    <button
+                        class="delete-btn"
+                        onclick="deleteChallenge(3)"
+                    >
+                        Delete
+                    </button>
+
+                </div>
+
+            </article>
+
+        </section>
+
+    </main>
+
+
+    <!-- DELETE CONFIRMATION MODAL -->
+
+    <div
+        id="challengeDeleteModal"
+        class="modal-overlay"
+        style="display: none;"
+    >
+
+        <div class="modal">
+
+            <button
+                class="modal-close"
+                onclick="closeChallengeDeleteModal()"
+            >
+                ×
+            </button>
+
+            <div class="delete-icon">
+                🗑
+            </div>
+
+            <h2>
+                Delete this challenge?
+            </h2>
 
             <p>
-                Build a lesson that helps students
-                understand and apply a concept.
+                This action cannot be undone. Students will
+                no longer be able to access this challenge.
             </p>
 
-        </div>
-
-
-        <!-- LESSON FORM -->
-
-        <form
-            id="lessonForm"
-            class="content-form"
-        >
-
-
-            <!-- BASIC INFORMATION -->
-
-            <section class="form-section">
-
-                <div class="form-section-header">
-
-                    <span>
-                        01
-                    </span>
-
-                    <div>
-
-                        <h2>
-                            Basic Information
-                        </h2>
-
-                        <p>
-                            Tell students what this lesson
-                            is about.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="lessonTitle">
-                        Lesson Title
-                    </label>
-
-                    <input
-                        type="text"
-                        id="lessonTitle"
-                        name="title"
-                        placeholder="e.g. States of Matter"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-row">
-
-                    <div class="form-group">
-
-                        <label for="lessonSubject">
-                            Subject
-                        </label>
-
-                        <select
-                            id="lessonSubject"
-                            name="subject"
-                            required
-                        >
-
-                            <option value="">
-                                Select subject
-                            </option>
-
-                            <option value="science">
-                                Science
-                            </option>
-
-                            <option value="mathematics">
-                                Mathematics
-                            </option>
-
-                            <option value="ict">
-                                ICT
-                            </option>
-
-                            <option value="english">
-                                English
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="lessonDuration">
-                            Duration
-                        </label>
-
-                        <select
-                            id="lessonDuration"
-                            name="duration"
-                            required
-                        >
-
-                            <option value="">
-                                Select duration
-                            </option>
-
-                            <option value="15">
-                                15 minutes
-                            </option>
-
-                            <option value="20">
-                                20 minutes
-                            </option>
-
-                            <option value="30">
-                                30 minutes
-                            </option>
-
-                            <option value="40">
-                                40 minutes
-                            </option>
-
-                            <option value="60">
-                                60 minutes
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="lessonDescription">
-                        Lesson Description
-                    </label>
-
-                    <textarea
-                        id="lessonDescription"
-                        name="description"
-                        rows="5"
-                        placeholder="Describe what students will learn..."
-                        required
-                    ></textarea>
-
-                </div>
-
-            </section>
-
-
-            <!-- LEARNING OBJECTIVES -->
-
-            <section class="form-section">
-
-                <div class="form-section-header">
-
-                    <span>
-                        02
-                    </span>
-
-                    <div>
-
-                        <h2>
-                            Learning Objectives
-                        </h2>
-
-                        <p>
-                            What should students be able
-                            to do after the lesson?
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    id="objectivesContainer"
-                    class="dynamic-fields"
-                >
-
-                    <div class="dynamic-field">
-
-                        <input
-                            type="text"
-                            name="objectives[]"
-                            placeholder="e.g. Identify the three states of matter"
-                            required
-                        >
-
-                        <button
-                            type="button"
-                            onclick="removeField(this)"
-                        >
-                            ×
-                        </button>
-
-                    </div>
-
-                </div>
-
+            <div class="modal-actions">
 
                 <button
-                    type="button"
-                    class="add-field-btn"
-                    onclick="addObjective()"
-                >
-                    + Add Objective
-                </button>
-
-            </section>
-
-
-            <!-- LESSON CONTENT -->
-
-            <section class="form-section">
-
-                <div class="form-section-header">
-
-                    <span>
-                        03
-                    </span>
-
-                    <div>
-
-                        <h2>
-                            Lesson Content
-                        </h2>
-
-                        <p>
-                            Add the main learning material.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="lessonContent">
-                        Content
-                    </label>
-
-                    <textarea
-                        id="lessonContent"
-                        name="content"
-                        rows="12"
-                        placeholder="Write your lesson content here..."
-                        required
-                    ></textarea>
-
-                </div>
-
-            </section>
-
-
-            <!-- PRACTICAL CONNECTION -->
-
-            <section class="form-section">
-
-                <div class="form-section-header">
-
-                    <span>
-                        04
-                    </span>
-
-                    <div>
-
-                        <h2>
-                            Real-World Connection
-                        </h2>
-
-                        <p>
-                            Help students connect the concept
-                            to everyday life.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="realLifeConnection">
-                        How does this apply in real life?
-                    </label>
-
-                    <textarea
-                        id="realLifeConnection"
-                        name="real_life_connection"
-                        rows="6"
-                        placeholder="Explain how students can see or use this concept in real life..."
-                    ></textarea>
-
-                </div>
-
-            </section>
-
-
-            <!-- STATUS -->
-
-            <section class="form-section">
-
-                <div class="form-section-header">
-
-                    <span>
-                        05
-                    </span>
-
-                    <div>
-
-                        <h2>
-                            Publish
-                        </h2>
-
-                        <p>
-                            Choose what happens to your lesson.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="publish-options">
-
-                    <label>
-
-                        <input
-                            type="radio"
-                            name="status"
-                            value="draft"
-                            checked
-                        >
-
-                        <span>
-
-                            <strong>
-                                Save as Draft
-                            </strong>
-
-                            <small>
-                                Students won't see it yet.
-                            </small>
-
-                        </span>
-
-                    </label>
-
-
-                    <label>
-
-                        <input
-                            type="radio"
-                            name="status"
-                            value="published"
-                        >
-
-                        <span>
-
-                            <strong>
-                                Publish Lesson
-                            </strong>
-
-                            <small>
-                                Students can access it.
-                            </small>
-
-                        </span>
-
-                    </label>
-
-                </div>
-
-            </section>
-
-
-            <!-- FORM ACTIONS -->
-
-            <div class="form-actions">
-
-                <a
-                    href="lessons.html"
                     class="secondary-btn"
+                    onclick="closeChallengeDeleteModal()"
                 >
                     Cancel
-                </a>
+                </button>
 
                 <button
-                    type="submit"
-                    class="primary-btn"
+                    class="delete-btn"
+                    onclick="confirmDeleteChallenge()"
                 >
-                    Save Lesson
+                    Delete Challenge
                 </button>
 
             </div>
 
-        </form>
+        </div>
 
-    </main>
+    </div>
 
 
     <footer>
@@ -524,6 +453,10 @@
 
         <p>
             Learning beyond books.
+        </p>
+
+        <p class="copyright">
+            © 2026 Fredu Spark. All rights reserved.
         </p>
 
     </footer>

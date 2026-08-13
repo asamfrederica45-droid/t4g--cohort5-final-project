@@ -10,7 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Create Lesson | Fredu Spark</title>
+    <title>My Lessons | Fredu Spark</title>
 
     <link
         rel="stylesheet"
@@ -82,438 +82,433 @@
 
     <!-- MAIN -->
 
-    <main class="form-page">
+    <main class="teacher-page">
 
 
-        <div class="form-page-header">
+        <!-- HEADER -->
+
+        <section class="page-header">
+
+            <div>
+
+                <p class="small-heading">
+                    CONTENT MANAGEMENT
+                </p>
+
+                <h1>
+                    My Lessons
+                </h1>
+
+                <p>
+                    View, edit or remove the lessons
+                    you have created.
+                </p>
+
+            </div>
 
             <a
-                href="lessons.html"
-                class="back-link"
+                href="create-lesson.html"
+                class="primary-btn"
             >
-                ← Back to Lessons
+                + Create Lesson
             </a>
 
-            <p class="small-heading">
-                LESSON CREATOR
-            </p>
+        </section>
 
-            <h1>
-                Create a New Lesson
-            </h1>
+
+        <!-- SEARCH -->
+
+        <section class="content-tools">
+
+            <div class="search-box">
+
+                <span>🔍</span>
+
+                <input
+                    type="text"
+                    id="teacherLessonSearch"
+                    placeholder="Search lessons..."
+                    onkeyup="searchTeacherLessons()"
+                >
+
+            </div>
+
+
+            <select id="teacherLessonSubjectFilter">
+
+                <option value="all">
+                    All Subjects
+                </option>
+
+                <option value="science">
+                    Science
+                </option>
+
+                <option value="mathematics">
+                    Mathematics
+                </option>
+
+                <option value="ict">
+                    ICT
+                </option>
+
+                <option value="english">
+                    English
+                </option>
+
+            </select>
+
+        </section>
+
+
+        <!-- LESSON TABLE -->
+
+        <section class="teacher-table-container">
+
+            <table class="teacher-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Lesson
+                        </th>
+
+                        <th>
+                            Subject
+                        </th>
+
+                        <th>
+                            Duration
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Actions
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+
+                            <div class="table-content">
+
+                                <div class="table-icon">
+                                    🧪
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        States of Matter
+                                    </strong>
+                                    <small>
+                                        Solids, liquids and gases
+                                    </small>
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>
+                            Science
+                        </td>
+
+                        <td>
+                            30 min
+                        </td>
+
+                        <td>
+                            <span class="status published">
+                                Published
+                            </span>
+                        </td>
+
+                        <td>
+
+                            <div class="table-actions">
+
+                                <button onclick="viewLesson(1)">
+                                    View
+                                </button>
+
+                                <button onclick="editLesson(1)">
+                                    Edit
+                                </button>
+
+                                <button
+                                    class="delete-action"
+                                    onclick="deleteLesson(1)"
+                                >
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+
+                            <div class="table-content">
+
+                                <div class="table-icon">
+                                    📐
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Fractions Around Us
+                                    </strong>
+                                    <small>
+                                        Everyday fraction examples
+                                    </small>
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>
+                            Mathematics
+                        </td>
+
+                        <td>
+                            25 min
+                        </td>
+
+                        <td>
+                            <span class="status draft">
+                                Draft
+                            </span>
+                        </td>
+
+                        <td>
+
+                            <div class="table-actions">
+
+                                <button onclick="viewLesson(2)">
+                                    View
+                                </button>
+
+                                <button onclick="editLesson(2)">
+                                    Edit
+                                </button>
+
+                                <button
+                                    class="delete-action"
+                                    onclick="deleteLesson(2)"
+                                >
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+
+                            <div class="table-content">
+
+                                <div class="table-icon">
+                                    💻
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Introduction to Algorithms
+                                    </strong>
+                                    <small>
+                                        Step-by-step problem solving
+                                    </small>
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>
+                            ICT
+                        </td>
+
+                        <td>
+                            40 min
+                        </td>
+
+                        <td>
+                            <span class="status published">
+                                Published
+                            </span>
+                        </td>
+
+                        <td>
+
+                            <div class="table-actions">
+
+                                <button onclick="viewLesson(3)">
+                                    View
+                                </button>
+
+                                <button onclick="editLesson(3)">
+                                    Edit
+                                </button>
+
+                                <button
+                                    class="delete-action"
+                                    onclick="deleteLesson(3)"
+                                >
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+
+                            <div class="table-content">
+
+                                <div class="table-icon">
+                                    ✍🏾
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Creative Storytelling
+                                    </strong>
+                                    <small>
+                                        Characters, settings and ideas
+                                    </small>
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>
+                            English
+                        </td>
+
+                        <td>
+                            35 min
+                        </td>
+
+                        <td>
+                            <span class="status draft">
+                                Draft
+                            </span>
+                        </td>
+
+                        <td>
+
+                            <div class="table-actions">
+
+                                <button onclick="viewLesson(4)">
+                                    View
+                                </button>
+
+                                <button onclick="editLesson(4)">
+                                    Edit
+                                </button>
+
+                                <button
+                                    class="delete-action"
+                                    onclick="deleteLesson(4)"
+                                >
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+
+    <!-- DELETE CONFIRMATION MODAL -->
+
+    <div
+        id="deleteModal"
+        class="modal-overlay"
+        style="display: none;"
+    >
+
+        <div class="modal">
+
+            <button
+                class="modal-close"
+                onclick="closeDeleteModal()"
+            >
+                ×
+            </button>
+
+            <div class="delete-icon">
+                🗑
+            </div>
+
+            <h2>
+                Delete this lesson?
+            </h2>
 
             <p>
-                Build a lesson that helps students
-                understand and apply a concept.
+                This action cannot be undone. Students will
+                no longer be able to access this lesson.
             </p>
 
-        </div>
-
-
-        <!-- LESSON FORM -->
-
-        <form
-            id="lessonForm"
-            class="content-form"
-        >
-
-
-            <!-- BASIC INFORMATION -->
-
-            <section class="form-section">
-
-                <div class="form-section-header">
-
-                    <span>
-                        01
-                    </span>
-
-                    <div>
-
-                        <h2>
-                            Basic Information
-                        </h2>
-
-                        <p>
-                            Tell students what this lesson
-                            is about.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="lessonTitle">
-                        Lesson Title
-                    </label>
-
-                    <input
-                        type="text"
-                        id="lessonTitle"
-                        name="title"
-                        placeholder="e.g. States of Matter"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-row">
-
-                    <div class="form-group">
-
-                        <label for="lessonSubject">
-                            Subject
-                        </label>
-
-                        <select
-                            id="lessonSubject"
-                            name="subject"
-                            required
-                        >
-
-                            <option value="">
-                                Select subject
-                            </option>
-
-                            <option value="science">
-                                Science
-                            </option>
-
-                            <option value="mathematics">
-                                Mathematics
-                            </option>
-
-                            <option value="ict">
-                                ICT
-                            </option>
-
-                            <option value="english">
-                                English
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="lessonDuration">
-                            Duration
-                        </label>
-
-                        <select
-                            id="lessonDuration"
-                            name="duration"
-                            required
-                        >
-
-                            <option value="">
-                                Select duration
-                            </option>
-
-                            <option value="15">
-                                15 minutes
-                            </option>
-
-                            <option value="20">
-                                20 minutes
-                            </option>
-
-                            <option value="30">
-                                30 minutes
-                            </option>
-
-                            <option value="40">
-                                40 minutes
-                            </option>
-
-                            <option value="60">
-                                60 minutes
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="lessonDescription">
-                        Lesson Description
-                    </label>
-
-                    <textarea
-                        id="lessonDescription"
-                        name="description"
-                        rows="5"
-                        placeholder="Describe what students will learn..."
-                        required
-                    ></textarea>
-
-                </div>
-
-            </section>
-
-
-            <!-- LEARNING OBJECTIVES -->
-
-            <section class="form-section">
-
-                <div class="form-section-header">
-
-                    <span>
-                        02
-                    </span>
-
-                    <div>
-
-                        <h2>
-                            Learning Objectives
-                        </h2>
-
-                        <p>
-                            What should students be able
-                            to do after the lesson?
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    id="objectivesContainer"
-                    class="dynamic-fields"
-                >
-
-                    <div class="dynamic-field">
-
-                        <input
-                            type="text"
-                            name="objectives[]"
-                            placeholder="e.g. Identify the three states of matter"
-                            required
-                        >
-
-                        <button
-                            type="button"
-                            onclick="removeField(this)"
-                        >
-                            ×
-                        </button>
-
-                    </div>
-
-                </div>
-
+            <div class="modal-actions">
 
                 <button
-                    type="button"
-                    class="add-field-btn"
-                    onclick="addObjective()"
-                >
-                    + Add Objective
-                </button>
-
-            </section>
-
-
-            <!-- LESSON CONTENT -->
-
-            <section class="form-section">
-
-                <div class="form-section-header">
-
-                    <span>
-                        03
-                    </span>
-
-                    <div>
-
-                        <h2>
-                            Lesson Content
-                        </h2>
-
-                        <p>
-                            Add the main learning material.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="lessonContent">
-                        Content
-                    </label>
-
-                    <textarea
-                        id="lessonContent"
-                        name="content"
-                        rows="12"
-                        placeholder="Write your lesson content here..."
-                        required
-                    ></textarea>
-
-                </div>
-
-            </section>
-
-
-            <!-- PRACTICAL CONNECTION -->
-
-            <section class="form-section">
-
-                <div class="form-section-header">
-
-                    <span>
-                        04
-                    </span>
-
-                    <div>
-
-                        <h2>
-                            Real-World Connection
-                        </h2>
-
-                        <p>
-                            Help students connect the concept
-                            to everyday life.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="realLifeConnection">
-                        How does this apply in real life?
-                    </label>
-
-                    <textarea
-                        id="realLifeConnection"
-                        name="real_life_connection"
-                        rows="6"
-                        placeholder="Explain how students can see or use this concept in real life..."
-                    ></textarea>
-
-                </div>
-
-            </section>
-
-
-            <!-- STATUS -->
-
-            <section class="form-section">
-
-                <div class="form-section-header">
-
-                    <span>
-                        05
-                    </span>
-
-                    <div>
-
-                        <h2>
-                            Publish
-                        </h2>
-
-                        <p>
-                            Choose what happens to your lesson.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="publish-options">
-
-                    <label>
-
-                        <input
-                            type="radio"
-                            name="status"
-                            value="draft"
-                            checked
-                        >
-
-                        <span>
-
-                            <strong>
-                                Save as Draft
-                            </strong>
-
-                            <small>
-                                Students won't see it yet.
-                            </small>
-
-                        </span>
-
-                    </label>
-
-
-                    <label>
-
-                        <input
-                            type="radio"
-                            name="status"
-                            value="published"
-                        >
-
-                        <span>
-
-                            <strong>
-                                Publish Lesson
-                            </strong>
-
-                            <small>
-                                Students can access it.
-                            </small>
-
-                        </span>
-
-                    </label>
-
-                </div>
-
-            </section>
-
-
-            <!-- FORM ACTIONS -->
-
-            <div class="form-actions">
-
-                <a
-                    href="lessons.html"
                     class="secondary-btn"
+                    onclick="closeDeleteModal()"
                 >
                     Cancel
-                </a>
+                </button>
 
                 <button
-                    type="submit"
-                    class="primary-btn"
+                    class="delete-btn"
+                    onclick="confirmDeleteLesson()"
                 >
-                    Save Lesson
+                    Delete Lesson
                 </button>
 
             </div>
 
-        </form>
+        </div>
 
-    </main>
+    </div>
 
 
     <footer>
@@ -524,6 +519,10 @@
 
         <p>
             Learning beyond books.
+        </p>
+
+        <p class="copyright">
+            © 2026 Fredu Spark. All rights reserved.
         </p>
 
     </footer>
