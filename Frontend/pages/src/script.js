@@ -694,7 +694,127 @@ if (signupForm) {
 
 
 /* =========================================================
-   21. SCROLL REVEAL ANIMATIONS
+   21. STUDENT: SEARCH LESSONS
+   ========================================================= */
+
+function searchLessons() {
+
+    const input =
+        document.getElementById("lessonSearch");
+
+    if (!input) {
+        return;
+    }
+
+    const searchTerm =
+        input.value.toLowerCase();
+
+    const cards =
+        document.querySelectorAll(".lesson-card");
+
+    cards.forEach(function (card) {
+
+        const text =
+            card.textContent.toLowerCase();
+
+        if (text.includes(searchTerm)) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   22. STUDENT: SEARCH SUBJECTS
+   ========================================================= */
+
+function searchStudentSubjects() {
+
+    const input =
+        document.getElementById("studentSubjectSearch");
+
+    if (!input) {
+        return;
+    }
+
+    const searchTerm =
+        input.value.toLowerCase();
+
+    const cards =
+        document.querySelectorAll(".subject-card");
+
+    cards.forEach(function (card) {
+
+        const text =
+            card.textContent.toLowerCase();
+
+        if (text.includes(searchTerm)) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   23. STUDENT: COMPLETE CHALLENGE
+   ========================================================= */
+
+function completeChallenge() {
+
+    const fill =
+        document.querySelector(".challenge-progress-fill");
+
+    const label =
+        document.querySelector(".challenge-progress + p, .challenge-progress p:last-child");
+
+    if (fill) {
+        fill.style.width = "100%";
+    }
+
+    const progressText =
+        document.querySelector(".challenge-progress p");
+
+    if (progressText) {
+        progressText.textContent = "100% completed";
+    }
+
+    alert("Nice work! Challenge marked as complete.");
+
+}
+
+
+/* =========================================================
+   24. STUDENT: REFLECTION FORM
+   ========================================================= */
+
+const reflectionForm =
+    document.getElementById("reflectionForm");
+
+if (reflectionForm) {
+
+    reflectionForm.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        alert("Reflection submitted. Great thinking!");
+
+        reflectionForm.reset();
+
+    });
+
+}
+
+
+/* =========================================================
+   25. SCROLL REVEAL ANIMATIONS
    ========================================================= */
 
 (function () {
