@@ -8,20 +8,69 @@
    1. LOGOUT
    ========================================================= */
 
-function logout() {
+async function loadSubjects() {
+    try {
+        const response = await fetch("http://127.0.0.1:8000/subjects");
+        const subjects = await response.json();
 
-    const confirmLogout = confirm(
-        "Are you sure you want to log out?"
-    );
+        const grid = document.querySelector(".subjects-grid");
+        if (!grid) return; 
+        grid.innerHTML = "";
 
-    if (confirmLogout) {
+        subjects.forEach(subject => {
+            const card = document.createElement("article");
+            card.classList.add("subject-card");
 
-        window.location.href = "../index.html";
+            card.innerHTML = `
+                <div class="subject-icon">📘</div>
+                <p class="subject-category">${subject.name.toUpperCase()}</p>
+                <h2>${subject.name}</h2>
+                <p>${subject.description ? subject.description : "No description yet."}</p>
+            `;
 
+            grid.appendChild(card);
+        });
+
+    } catch (error) {
+        console.error("Error fetching subjects:", error);
     }
-
 }
 
+async function loadLessons() {
+    try {
+        const response = await fetch("http://127.0.0.1:8000/lessons/");
+        const lessons = await response.json();
+
+        const grid = document.querySelector(".lesson-grid");
+        if (!grid) return; // not on this page, skip safely
+
+        grid.innerHTML = "";
+
+        lessons.forEach(lesson => {
+            const card = document.createElement("article");
+            card.classList.add("lesson-card");
+
+            card.innerHTML = `
+                <div class="lesson-image science-bg"></div>
+                <div class="lesson-content">
+                    <p class="subject-category">SUBJECT ${lesson.subject_id}</p>
+                    <h2>${lesson.title}</h2>
+                    <p>${lesson.description ? lesson.description : "No description yet."}</p>
+                </div>
+            `;
+
+            grid.appendChild(card);
+        });
+
+    } catch (error) {
+        console.error("Error fetching lessons:", error);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadSubjects();
+    loadLessons();
+});
 
 /* =========================================================
    2. DELETE LESSON
