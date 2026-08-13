@@ -1,4 +1,4 @@
-##### Fredu Spark
+## Fredu Spark
 
 ### Learn. Explore. Create.
 
