@@ -700,33 +700,143 @@ window.addEventListener("click", function (event) {
 
 
 /* =========================================================
-   AUTH FORM DEMO SUBMIT
+   AUTHENTICATION
+   ========================================================= */
+
+const API_URL = "http://127.0.0.1:8000";
+
+/* =========================================================
+   SIGN UP
+   ========================================================= */
+
+const signupForm = document.getElementById("signupForm");
+
+if (signupForm) {
+    signupForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const fullName = document.getElementById("signupName").value.trim();
+        const email = document.getElementById("signupEmail").value.trim();
+        const password = document.getElementById("signupPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        const selectedRole = document.querySelector(
+            'input[name="role"]:checked'
+        );
+
+        if (!selectedRole) {
+            alert("Please select Student or Teacher.");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+        }
+
+        const formData = new URLSearchParams();
+
+        formData.append("full_name", fullName);
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("role", selectedRole.value);
+
+        try {
+            const response = await fetch(
+                "http://127.0.0.1:8000/users/signup",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: formData
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.error("Signup error:", data);
+                alert(data.detail || "Could not create account.");
+                return;
+            }
+
+            alert("Account created successfully!");
+
+            window.location.href = "login.html";
+
+        } catch (error) {
+            console.error("Connection error:", error);
+            alert("Could not connect to the server.");
+        }
+    });
+}
+
+    
+
+/* =========================================================
+   LOGIN
    ========================================================= */
 
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
-    loginForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-        alert("Logged in successfully!");
-    });
-}
-
-const signupForm = document.getElementById("signupForm");
-
-if (signupForm) {
-    signupForm.addEventListener("submit", function (event) {
+    loginForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 
-        const password = document.getElementById("signupPassword");
-        const confirmPassword = document.getElementById("confirmPassword");
+        const email = document.getElementById("loginEmail").value.trim();
+        const password = document.getElementById("loginPassword").value;
+        const role = document.getElementById("loginRole").value;
 
-        if (password && confirmPassword && password.value !== confirmPassword.value) {
-            alert("Passwords do not match.");
+        if (!role) {
+            alert("Please select your role.");
             return;
         }
 
-        alert("Account created successfully!");
+        const formData = new URLSearchParams();
+
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("role", role);
+
+        try {
+            const response = await fetch(
+                "http://127.0.0.1:8000/users/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: formData
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(data.detail || "Login failed.");
+                return;
+            }
+
+            // Save the logged-in student's information
+            localStorage.setItem("userId", data.id);
+            localStorage.setItem("userName", data.full_name);
+            localStorage.setItem("userEmail", data.email);
+            localStorage.setItem("userRole", data.role);
+
+            alert("Login successful!");
+
+            // Redirect based on role
+            if (data.role === "student") {
+                window.location.href = "../student/dashboard.html";
+            } else if (data.role === "teacher") {
+                window.location.href = "../teacher/dashboard.html";
+            }
+
+        } catch (error) {
+            console.error("Login error:", error);
+            alert("Could not connect to the server.");
+        }
     });
 }
 
@@ -857,4 +967,38 @@ document.addEventListener("DOMContentLoaded", () => {
     loadTeacherLessons();
     loadChallengePage();
     loadTeacherChallenges();
+});
+/* =========================================================
+   DISPLAY LOGGED-IN STUDENT
+   ========================================================= */
+
+function loadLoggedInStudent() {
+
+    const userName = localStorage.getItem("userName");
+
+    if (!userName) {
+        return;
+    }
+
+    const profileName = document.getElementById("profileName");
+    const welcomeName = document.getElementById("welcomeName");
+    const profileInitial = document.getElementById("profileInitial");
+
+    if (profileName) {
+        profileName.textContent = userName;
+    }
+
+    if (welcomeName) {
+        welcomeName.textContent = userName;
+    }
+
+    if (profileInitial) {
+        profileInitial.textContent =
+            userName.charAt(0).toUpperCase();
+    }
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    loadLoggedInStudent();
 });

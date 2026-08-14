@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.database import engine, Base
-from app.routes import subject_routes, lesson_routes, challenge_routes
+from app.models import  User
+from app.routes import subject_routes, lesson_routes, challenge_routes,user_routes
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -32,7 +33,7 @@ app.add_middleware(
 app.include_router(subject_routes.router)
 app.include_router(lesson_routes.router)
 app.include_router(challenge_routes.router)
-
+app.include_router(user_routes.router)
 
 @app.get("/")
 def root():

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Management | Fredu Spark</title>
+
+    <link rel="stylesheet" href="../src/style.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <header class="student-navbar">
+
+        <a href="dashboard.html" class="logo">
+            <span>Fredu</span> Spark
+        </a>
+
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="student-management.html" class="active">
+                Students
+            </a>
+            <a href="lessons.html">Lessons</a>
+            <a href="challenges.html">Challenges</a>
+        </nav>
+
+        <div class="student-profile">
+
+            <div class="profile-circle">
+                T
+            </div>
+
+            <span>
+                Teacher
+            </span>
+
+            <button class="logout-btn" onclick="logout()">
+                Log Out
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="student-dashboard">
+
+        <!-- PAGE HEADER -->
+
+        <section class="dashboard-welcome">
+
+            <div>
+
+                <p class="small-heading">
+                    TEACHER DASHBOARD
+                </p>
+
+                <h1>
+                    Student Management
+                </h1>
+
+                <p>
+                    View and manage students registered
+                    on Fredu Spark.
+                </p>
+
+            </div>
+
+            <div class="welcome-spark">
+                ✦
+            </div>
+
+        </section>
+
+
+        <!-- STUDENT MANAGEMENT -->
+
+        <section class="dashboard-section">
+
+            <div class="section-title">
+
+                <div>
+
+                    <p class="small-heading">
+                        STUDENTS
+                    </p>
+
+                    <h2>
+                        Registered Students
+                    </h2>
+
+                </div>
+
+                <button
+                    class="primary-btn"
+                    onclick="openAddStudentForm()"
+                >
+                    + Add Student
+                </button>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <div class="form-group">
+
+                <input
+                    type="text"
+                    id="studentSearch"
+                    placeholder="Search students by name or email..."
+                    oninput="searchStudents()"
+                >
+
+            </div>
+
+
+            <!-- TABLE -->
+
+            <div class="teacher-table-container">
+
+                <table class="teacher-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Student
+                            </th>
+
+                            <th>
+                                Email
+                            </th>
+
+                            <th>
+                                Role
+                            </th>
+
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="studentsTableBody">
+
+                        <tr>
+
+                            <td colspan="4">
+                                Loading students...
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= ADD / EDIT MODAL ================= -->
+
+    <div
+        id="studentModal"
+        class="modal"
+        style="display: none;"
+    >
+
+        <div class="modal-content">
+
+            <button
+                class="modal-close"
+                onclick="closeStudentModal()"
+            >
+                ×
+            </button>
+
+            <h2 id="studentModalTitle">
+                Add Student
+            </h2>
+
+
+            <form id="studentForm">
+
+                <input
+                    type="hidden"
+                    id="studentId"
+                >
+
+
+                <div class="form-group">
+
+                    <label for="studentName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="studentName"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="studentEmail">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="studentEmail"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-btn"
+                        onclick="closeStudentModal()"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        Save Student
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= DELETE MODAL ================= -->
+
+    <div
+        id="studentDeleteModal"
+        class="modal"
+        style="display: none;"
+    >
+
+        <div class="modal-content">
+
+            <h2>
+                Delete Student?
+            </h2>
+
+            <p>
+                Are you sure you want to delete this student?
+                This action cannot be undone.
+            </p>
+
+            <div class="modal-actions">
+
+                <button
+                    class="secondary-btn"
+                    onclick="closeStudentDeleteModal()"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    class="delete-btn"
+                    onclick="confirmDeleteStudent()"
+                >
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="footer-logo">
+            Fredu <span>Spark</span>
+        </div>
+
+        <p>
+            Learning beyond books.
+        </p>
+
+        <p class="copyright">
+            ©️ 2026 Fredu Spark. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="../src/script.js"></script>
+
+</body>
+
+</html>

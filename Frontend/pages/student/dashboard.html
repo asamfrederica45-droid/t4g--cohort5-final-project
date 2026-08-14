@@ -8,8 +8,6 @@
     <title>Student Dashboard | Fredu Spark</title>
 
     <link rel="stylesheet" href="../src/style.css">
-    <script>window.ENFORCE_STUDENT_BEDTIME = true;</script>
-    <script src="../src/sleep-check.js"></script>
 </head>
 
 <body>
@@ -32,11 +30,13 @@
 
         <div class="student-profile">
 
-            <div class="profile-circle">
-                F
+            <div class="profile-circle" id="profileInitial">
+                S
             </div>
 
-            <span>Fredericka</span>
+            <span id="profileName">
+                Student
+            </span>
 
             <button class="logout-btn" onclick="logout()">
                 Log Out
@@ -62,7 +62,7 @@
                 </p>
 
                 <h1>
-                    Hey Fredericka! 👋🏾
+                    Hey <span id="welcomeName">Student</span>! 👋🏾
                 </h1>
 
                 <p>
@@ -114,6 +114,7 @@
             <div class="section-title">
 
                 <div>
+
                     <p class="small-heading">
                         EXPLORE
                     </p>
@@ -121,6 +122,7 @@
                     <h2>
                         What do you want to learn?
                     </h2>
+
                 </div>
 
             </div>
@@ -204,6 +206,7 @@
             <div class="section-title">
 
                 <div>
+
                     <p class="small-heading">
                         RECOMMENDED FOR YOU
                     </p>
@@ -211,6 +214,7 @@
                     <h2>
                         Try something practical
                     </h2>
+
                 </div>
 
                 <a href="challenge.html" class="view-all">
@@ -325,7 +329,7 @@
         </p>
 
         <p class="copyright">
-            © 2026 Fredu Spark. All rights reserved.
+            ©️ 2026 Fredu Spark. All rights reserved.
         </p>
 
     </footer>
