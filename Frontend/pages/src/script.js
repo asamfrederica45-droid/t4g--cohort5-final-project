@@ -8,7 +8,18 @@
    1. LOGOUT
    ========================================================= */
 
-    
+function logout() {
+    const confirmLogout = confirm("Are you sure you want to log out?");
+    if (confirmLogout) {
+        window.location.href = "../../index.html";
+    }
+}
+
+
+/* =========================================================
+   STUDENT: LOAD SUBJECTS
+   ========================================================= */
+
 async function loadSubjects() {
     try {
         const [subjectsRes, lessonsRes] = await Promise.all([
@@ -46,9 +57,12 @@ async function loadSubjects() {
     }
 }
 
-        
 
-    async function loadLessons() {
+/* =========================================================
+   STUDENT: LOAD LESSONS (filtered by subject if in URL)
+   ========================================================= */
+
+async function loadLessons() {
     try {
         const response = await fetch("http://127.0.0.1:8000/lessons/");
         const lessons = await response.json();
@@ -88,241 +102,143 @@ async function loadSubjects() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    loadSubjects();
-    loadLessons();
-});
-function logout() {
-
-    const confirmLogout = confirm(
-        "Are you sure you want to log out?"
-    );
-
-    if (confirmLogout) {
-
-        window.location.href = "../../index.html";
-
-    }
-
-}
-
 
 /* =========================================================
-   2. DELETE LESSON
+   TEACHER: LOAD, EDIT, DELETE LESSONS
    ========================================================= */
+
+async function loadTeacherLessons() {
+    const tbody = document.getElementById("lessonsTableBody");
+    if (!tbody) return;
+
+    try {
+        const response = await fetch("http://127.0.0.1:8000/lessons/");
+        const lessons = await response.json();
+
+        tbody.innerHTML = "";
+
+        lessons.forEach(lesson => {
+            const row = document.createElement("tr");
+            row.id = `lesson-row-${lesson.id}`;
+            row.innerHTML = `
+                <td>
+                    <div class="table-content">
+                        <div class="table-icon">📘</div>
+                        <div>
+                            <strong>${lesson.title}</strong>
+                            <small>${lesson.description ? lesson.description : ""}</small>
+                        </div>
+                    </div>
+                </td>
+                <td>Subject ${lesson.subject_id}</td>
+                <td>${lesson.duration_minutes ? lesson.duration_minutes + " min" : "-"}</td>
+                <td><span class="status published">Published</span></td>
+                <td>
+                    <div class="table-actions">
+                        <button onclick="viewLesson(${lesson.id})">View</button>
+                        <button onclick="editLesson(${lesson.id})">Edit</button>
+                        <button class="delete-action" onclick="deleteLesson(${lesson.id})">Delete</button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    } catch (error) {
+        console.error("Error loading lessons:", error);
+    }
+}
 
 let lessonToDelete = null;
 
-
 function deleteLesson(lessonId) {
-
     lessonToDelete = lessonId;
-
     const modal = document.getElementById("deleteModal");
-
-    if (modal) {
-
-        modal.style.display = "flex";
-
-    }
-
+    if (modal) modal.style.display = "flex";
 }
-
 
 function closeDeleteModal() {
-
     const modal = document.getElementById("deleteModal");
-
-    if (modal) {
-
-        modal.style.display = "none";
-
-    }
-
+    if (modal) modal.style.display = "none";
     lessonToDelete = null;
-
 }
 
+async function confirmDeleteLesson() {
+    if (lessonToDelete === null) return;
 
-function confirmDeleteLesson() {
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/lessons/${lessonToDelete}`, {
+            method: "DELETE"
+        });
 
-    if (lessonToDelete === null) {
-        return;
-    }
-
-    alert(
-        "Lesson " +
-        lessonToDelete +
-        " would be deleted here."
-    );
-
-    closeDeleteModal();
-
-}
-
-
-/* =========================================================
-   3. VIEW LESSON
-   ========================================================= */
-
-function viewLesson(lessonId) {
-
-    alert(
-        "Viewing lesson " +
-        lessonId +
-        "."
-    );
-
-}
-
-
-/* =========================================================
-   4. EDIT LESSON
-   ========================================================= */
-
-function editLesson(lessonId) {
-
-    alert(
-        "Editing lesson " +
-        lessonId +
-        "."
-    );
-
-    window.location.href =
-        "create-lesson.html?edit=" + lessonId;
-
-}
-
-
-/* =========================================================
-   5. SEARCH LESSONS
-   ========================================================= */
-
-function searchTeacherLessons() {
-
-    const input =
-        document.getElementById(
-            "teacherLessonSearch"
-        );
-
-    if (!input) {
-        return;
-    }
-
-    const searchTerm =
-        input.value.toLowerCase();
-
-    const table =
-        document.querySelector(
-            ".teacher-table tbody"
-        );
-
-    if (!table) {
-        return;
-    }
-
-    const rows =
-        table.querySelectorAll("tr");
-
-    rows.forEach(function (row) {
-
-        const text =
-            row.textContent.toLowerCase();
-
-        if (text.includes(searchTerm)) {
-
-            row.style.display = "";
-
-        } else {
-
-            row.style.display = "none";
-
+        if (!response.ok) {
+            alert("Could not delete this lesson.");
+            closeDeleteModal();
+            return;
         }
 
-    });
+        const row = document.getElementById(`lesson-row-${lessonToDelete}`);
+        if (row) row.remove();
 
+        closeDeleteModal();
+
+    } catch (error) {
+        console.error("Error deleting lesson:", error);
+        alert("Could not connect to the server.");
+        closeDeleteModal();
+    }
+}
+
+function viewLesson(lessonId) {
+    alert("Viewing lesson " + lessonId + ".");
+}
+
+function editLesson(lessonId) {
+    window.location.href = "create-lesson.html?edit=" + lessonId;
 }
 
 
 /* =========================================================
-   6. SUBJECT MENU
+   TEACHER: CREATE SUBJECT
    ========================================================= */
 
-function showSubjectMenu(subject) {
-
-    alert(
-        "Subject options for: " +
-        subject
-    );
-
-}
-
-
-/* =========================================================
-   7. ADD SUBJECT
-   ========================================================= */
-
-
-        async function openSubjectForm() {
-
-    const subjectName = prompt(
-        "Enter the name of the new subject:"
-    );
+async function openSubjectForm() {
+    const subjectName = prompt("Enter the name of the new subject:");
 
     if (subjectName === null || subjectName.trim() === "") {
         return;
     }
 
-    const description = prompt(
-        "Enter a description for the subject:"
-    );
+    const description = prompt("Enter a description for the subject:");
 
     try {
-
-        const response = await fetch(
-            "http://127.0.0.1:8000/subjects/",
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    name: subjectName.trim(),
-                    description: description
-                        ? description.trim()
-                        : null
-                })
-            }
-        );
+        const response = await fetch("http://127.0.0.1:8000/subjects/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name: subjectName.trim(),
+                description: description ? description.trim() : null
+            })
+        });
 
         if (!response.ok) {
             throw new Error("Failed to create subject");
         }
 
         const newSubject = await response.json();
-
-        alert(
-            newSubject.name +
-            " has been added successfully!"
-        );
-
+        alert(newSubject.name + " has been added successfully!");
         loadSubjects();
 
     } catch (error) {
-
-        console.error(
-            "Error creating subject:",
-            error
-        );
-
-        alert(
-            "Could not add the subject."
-        );
-
+        console.error("Error creating subject:", error);
+        alert("Could not add the subject.");
     }
 }
+
+
+/* =========================================================
+   CHALLENGE PAGE (grid + detail, same file)
+   ========================================================= */
+
 async function loadChallengePage() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
@@ -332,7 +248,6 @@ async function loadChallengePage() {
     if (!gridView || !detailView) return;
 
     if (!id) {
-        // GRID VIEW
         gridView.style.display = "block";
         detailView.style.display = "none";
 
@@ -359,7 +274,6 @@ async function loadChallengePage() {
         }
 
     } else {
-        // DETAIL VIEW
         gridView.style.display = "none";
         detailView.style.display = "block";
 
@@ -397,697 +311,548 @@ async function loadChallengePage() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    loadChallengePage();
-});
+
 /* =========================================================
-   8. ADD LESSON OBJECTIVE
+   ADD LESSON OBJECTIVE
    ========================================================= */
 
 function addObjective() {
+    const container = document.getElementById("objectivesContainer");
+    if (!container) return;
 
-    const container =
-        document.getElementById(
-            "objectivesContainer"
-        );
-
-    if (!container) {
-        return;
-    }
-
-    const field =
-        document.createElement("div");
-
-    field.className =
-        "dynamic-field";
-
+    const field = document.createElement("div");
+    field.className = "dynamic-field";
     field.innerHTML = `
-        <input
-            type="text"
-            name="objectives[]"
-            placeholder="Enter another learning objective"
-            required
-        >
-
-        <button
-            type="button"
-            onclick="removeField(this)"
-        >
-            ×
-        </button>
+        <input type="text" name="objectives[]" placeholder="Enter another learning objective" required>
+        <button type="button" onclick="removeField(this)">×</button>
     `;
-
     container.appendChild(field);
-
 }
 
 
 /* =========================================================
-   9. ADD MATERIAL
+   ADD MATERIAL
    ========================================================= */
 
 function addMaterial() {
+    const container = document.getElementById("materialsContainer");
+    if (!container) return;
 
-    const container =
-        document.getElementById(
-            "materialsContainer"
-        );
-
-    if (!container) {
-        return;
-    }
-
-    const field =
-        document.createElement("div");
-
-    field.className =
-        "dynamic-field";
-
+    const field = document.createElement("div");
+    field.className = "dynamic-field";
     field.innerHTML = `
-        <input
-            type="text"
-            name="materials[]"
-            placeholder="Enter another material"
-            required
-        >
-
-        <button
-            type="button"
-            onclick="removeField(this)"
-        >
-            ×
-        </button>
+        <input type="text" name="materials[]" placeholder="Enter another material" required>
+        <button type="button" onclick="removeField(this)">×</button>
     `;
-
     container.appendChild(field);
-
 }
 
 
 /* =========================================================
-   10. ADD CHALLENGE INSTRUCTION
+   ADD CHALLENGE INSTRUCTION
    ========================================================= */
 
 function addInstruction() {
+    const container = document.getElementById("instructionsContainer");
+    if (!container) return;
 
-    const container =
-        document.getElementById(
-            "instructionsContainer"
-        );
+    const number = container.children.length + 1;
 
-    if (!container) {
-        return;
-    }
-
-    const number =
-        container.children.length + 1;
-
-    const field =
-        document.createElement("div");
-
-    field.className =
-        "dynamic-field numbered-field";
-
+    const field = document.createElement("div");
+    field.className = "dynamic-field numbered-field";
     field.innerHTML = `
-        <span>
-            ${number}
-        </span>
-
-        <input
-            type="text"
-            name="instructions[]"
-            placeholder="Enter the next step..."
-            required
-        >
-
-        <button
-            type="button"
-            onclick="removeField(this)"
-        >
-            ×
-        </button>
+        <span>${number}</span>
+        <input type="text" name="instructions[]" placeholder="Enter the next step..." required>
+        <button type="button" onclick="removeField(this)">×</button>
     `;
-
     container.appendChild(field);
-
 }
 
 
 /* =========================================================
-   11. REMOVE DYNAMIC FIELD
+   REMOVE DYNAMIC FIELD
    ========================================================= */
 
 function removeField(button) {
-
-    const field =
-        button.parentElement;
-
-    const container =
-        field.parentElement;
+    const field = button.parentElement;
+    const container = field.parentElement;
 
     if (container.children.length <= 1) {
-
-        alert(
-            "You need at least one field."
-        );
-
+        alert("You need at least one field.");
         return;
-
     }
 
     field.remove();
-
     updateInstructionNumbers();
-
 }
 
 
 /* =========================================================
-   12. UPDATE INSTRUCTION NUMBERS
+   UPDATE INSTRUCTION NUMBERS
    ========================================================= */
 
 function updateInstructionNumbers() {
+    const container = document.getElementById("instructionsContainer");
+    if (!container) return;
 
-    const container =
-        document.getElementById(
-            "instructionsContainer"
-        );
-
-    if (!container) {
-        return;
-    }
-
-    const fields =
-        container.querySelectorAll(
-            ".numbered-field"
-        );
-
+    const fields = container.querySelectorAll(".numbered-field");
     fields.forEach(function (field, index) {
-
-        const number =
-            field.querySelector("span");
-
-        if (number) {
-
-            number.textContent =
-                index + 1;
-
-        }
-
+        const number = field.querySelector("span");
+        if (number) number.textContent = index + 1;
     });
-
 }
 
 
 /* =========================================================
-   13. CHALLENGE SEARCH
+   TEACHER: SEARCH LESSONS TABLE
+   ========================================================= */
+
+function searchTeacherLessons() {
+    const input = document.getElementById("teacherLessonSearch");
+    if (!input) return;
+
+    const searchTerm = input.value.toLowerCase();
+    const table = document.querySelector(".teacher-table tbody");
+    if (!table) return;
+
+    const rows = table.querySelectorAll("tr");
+    rows.forEach(function (row) {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(searchTerm) ? "" : "none";
+    });
+}
+
+
+/* =========================================================
+   CHALLENGE SEARCH
    ========================================================= */
 
 function searchChallenges() {
+    const input = document.getElementById("challengeSearch");
+    if (!input) return;
 
-    const input =
-        document.getElementById(
-            "challengeSearch"
-        );
-
-    if (!input) {
-        return;
-    }
-
-    const searchTerm =
-        input.value.toLowerCase();
-
-    const cards =
-        document.querySelectorAll(
-            ".teacher-challenge-card"
-        );
-
+    const searchTerm = input.value.toLowerCase();
+    const cards = document.querySelectorAll(".teacher-challenge-card");
     cards.forEach(function (card) {
-
-        const text =
-            card.textContent.toLowerCase();
-
-        if (text.includes(searchTerm)) {
-
-            card.style.display = "";
-
-        } else {
-
-            card.style.display = "none";
-
-        }
-
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(searchTerm) ? "" : "none";
     });
-
 }
 
 
 /* =========================================================
-   14. VIEW CHALLENGE
+   VIEW / EDIT / DELETE CHALLENGE (teacher)
    ========================================================= */
+
+async function loadTeacherChallenges() {
+    const grid = document.getElementById("teacherChallengesGrid");
+    if (!grid) return;
+
+    try {
+        const response = await fetch("http://127.0.0.1:8000/challenges/");
+        const challenges = await response.json();
+
+        grid.innerHTML = "";
+
+        challenges.forEach(c => {
+            const card = document.createElement("article");
+            card.classList.add("teacher-challenge-card");
+            card.id = `challenge-card-${c.id}`;
+            card.innerHTML = `
+                <div class="teacher-challenge-top">
+                    <span class="difficulty">${c.difficulty_level ? c.difficulty_level.toUpperCase() : "EASY"}</span>
+                </div>
+                <div class="challenge-card-icon">🧪</div>
+                <h2>${c.title}</h2>
+                <p>${c.real_life_application ? c.real_life_application : "No description yet."}</p>
+                <div class="challenge-meta">
+                    <span>⏱ ${c.duration_minutes ? c.duration_minutes + " min" : "-"}</span>
+                    <span>📖 Lesson ${c.lesson_id}</span>
+                </div>
+                <div class="card-actions">
+                    <button class="secondary-btn" onclick="viewChallenge(${c.id})">View</button>
+                    <button class="secondary-btn" onclick="editChallenge(${c.id})">Edit</button>
+                    <button class="delete-btn" onclick="deleteChallenge(${c.id})">Delete</button>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    } catch (error) {
+        console.error("Error loading challenges:", error);
+    }
+}
 
 function viewChallenge(challengeId) {
-
-    alert(
-        "Viewing challenge " +
-        challengeId +
-        "."
-    );
-
+    window.location.href = "../student/challenge.html?id=" + challengeId;
 }
-
-
-/* =========================================================
-   15. EDIT CHALLENGE
-   ========================================================= */
 
 function editChallenge(challengeId) {
-
-    alert(
-        "Editing challenge " +
-        challengeId +
-        "."
-    );
-
-    window.location.href =
-        "create-challenge.html?edit=" +
-        challengeId;
-
+    window.location.href = "create-challenge.html?edit=" + challengeId;
 }
-
-
-/* =========================================================
-   16. DELETE CHALLENGE
-   ========================================================= */
 
 let challengeToDelete = null;
 
-
 function deleteChallenge(challengeId) {
-
-    challengeToDelete =
-        challengeId;
-
-    const modal =
-        document.getElementById(
-            "challengeDeleteModal"
-        );
-
-    if (modal) {
-
-        modal.style.display =
-            "flex";
-
-    }
-
+    challengeToDelete = challengeId;
+    const modal = document.getElementById("challengeDeleteModal");
+    if (modal) modal.style.display = "flex";
 }
-
 
 function closeChallengeDeleteModal() {
-
-    const modal =
-        document.getElementById(
-            "challengeDeleteModal"
-        );
-
-    if (modal) {
-
-        modal.style.display =
-            "none";
-
-    }
-
+    const modal = document.getElementById("challengeDeleteModal");
+    if (modal) modal.style.display = "none";
     challengeToDelete = null;
-
 }
 
+async function confirmDeleteChallenge() {
+    if (challengeToDelete === null) return;
 
-function confirmDeleteChallenge() {
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/challenges/${challengeToDelete}`, {
+            method: "DELETE"
+        });
 
-    if (challengeToDelete === null) {
-        return;
+        if (!response.ok) {
+            alert("Could not delete this challenge.");
+            closeChallengeDeleteModal();
+            return;
+        }
+
+        const card = document.getElementById(`challenge-card-${challengeToDelete}`);
+        if (card) card.remove();
+
+        closeChallengeDeleteModal();
+
+    } catch (error) {
+        console.error("Error deleting challenge:", error);
+        alert("Could not connect to the server.");
+        closeChallengeDeleteModal();
     }
-
-    alert(
-        "Challenge " +
-        challengeToDelete +
-        " would be deleted here."
-    );
-
-    closeChallengeDeleteModal();
-
 }
 
 
 /* =========================================================
-   17. LESSON FORM
+   LESSON FORM 
    ========================================================= */
+async function loadSubjectOptions() {
+    const select = document.getElementById("lessonSubject");
+    if (!select) return;
 
-const lessonForm =
-    document.getElementById(
-        "lessonForm"
-    );
+    try {
+        const response = await fetch("http://127.0.0.1:8000/subjects/");
+        const subjects = await response.json();
+
+        subjects.forEach(subject => {
+            const option = document.createElement("option");
+            option.value = subject.id;
+            option.textContent = subject.name;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error loading subjects for dropdown:", error);
+    }
+}
+
+const lessonForm = document.getElementById("lessonForm");
 
 if (lessonForm) {
 
-    lessonForm.addEventListener(
-        "submit",
-        function (event) {
+    loadSubjectOptions();
 
-            event.preventDefault();
+    lessonForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
 
-            alert(
-                "Lesson saved successfully!"
-            );
+        const objectives = Array.from(
+            document.querySelectorAll('input[name="objectives[]"]')
+        ).map(input => input.value).filter(v => v.trim() !== "");
 
-            window.location.href =
-                "lessons.html";
+        const payload = {
+            title: document.getElementById("lessonTitle").value,
+            description: document.getElementById("lessonDescription").value,
+            learning_objective: objectives.join("\n"),
+            subject_id: parseInt(document.getElementById("lessonSubject").value)
+        };
 
+        try {
+            const response = await fetch("http://127.0.0.1:8000/lessons/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("Server error:", errorData);
+                alert("Something went wrong saving the lesson. Check console for details.");
+                return;
+            }
+
+            alert("Lesson saved successfully!");
+            window.location.href = "lessons.html";
+
+        } catch (error) {
+            console.error("Error saving lesson:", error);
+            alert("Could not connect to the server.");
         }
-    );
+    });
 
 }
 
 
 /* =========================================================
-   18. CHALLENGE FORM
+   CHALLENGE FORM (real submit to backend)
    ========================================================= */
 
-const challengeForm =
-    document.getElementById(
-        "challengeForm"
-    );
+async function loadLessonOptions() {
+    const select = document.getElementById("challengeLesson");
+    if (!select) return;
+
+    try {
+        const response = await fetch("http://127.0.0.1:8000/lessons/");
+        const lessons = await response.json();
+
+        lessons.forEach(lesson => {
+            const option = document.createElement("option");
+            option.value = lesson.id;
+            option.textContent = lesson.title;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error loading lessons for dropdown:", error);
+    }
+}
+
+const challengeForm = document.getElementById("challengeForm");
 
 if (challengeForm) {
 
-    challengeForm.addEventListener(
-        "submit",
-        function (event) {
+    loadLessonOptions();
 
-            event.preventDefault();
-
-            alert(
-                "Challenge saved successfully!"
-            );
-
-            window.location.href =
-                "challenges.html";
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   19. CLOSE MODALS WHEN CLICKING OUTSIDE
-   ========================================================= */
-
-window.addEventListener(
-    "click",
-    function (event) {
-
-        const lessonModal =
-            document.getElementById(
-                "deleteModal"
-            );
-
-        const challengeModal =
-            document.getElementById(
-                "challengeDeleteModal"
-            );
-
-
-        if (
-            lessonModal &&
-            event.target === lessonModal
-        ) {
-
-            closeDeleteModal();
-
-        }
-
-
-        if (
-            challengeModal &&
-            event.target === challengeModal
-        ) {
-
-            closeChallengeDeleteModal();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   20. AUTH FORM DEMO SUBMIT
-   ========================================================= */
-
-const loginForm =
-    document.getElementById("loginForm");
-
-if (loginForm) {
-
-    loginForm.addEventListener("submit", function (event) {
-
+    challengeForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 
-        alert("Logged in successfully!");
+        const materials = Array.from(
+            document.querySelectorAll('input[name="materials[]"]')
+        ).map(input => input.value).filter(v => v.trim() !== "");
 
+        const instructions = Array.from(
+            document.querySelectorAll('input[name="instructions[]"]')
+        ).map(input => input.value).filter(v => v.trim() !== "");
+
+        const reflection = document.getElementById("reflectionQuestion").value;
+        const description = document.getElementById("challengeDescription").value;
+
+        const payload = {
+            title: document.getElementById("challengeTitle").value,
+            instructions: instructions,
+            materials_needed: materials,
+            real_life_application: description,
+            reflection_questions: reflection ? [reflection] : [],
+            difficulty_level: document.getElementById("challengeDifficulty").value,
+            duration_minutes: parseInt(document.getElementById("challengeDuration").value) || null,
+            lesson_id: parseInt(document.getElementById("challengeLesson").value)
+        };
+
+        try {
+            const response = await fetch("http://127.0.0.1:8000/challenges/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("Server error:", errorData);
+                alert("Something went wrong saving the challenge. Check console for details.");
+                return;
+            }
+
+            alert("Challenge saved successfully!");
+            window.location.href = "challenges.html";
+
+        } catch (error) {
+            console.error("Error saving challenge:", error);
+            alert("Could not connect to the server.");
+        }
     });
 
 }
 
-const signupForm =
-    document.getElementById("signupForm");
+
+/* =========================================================
+   CLOSE MODALS WHEN CLICKING OUTSIDE
+   ========================================================= */
+
+window.addEventListener("click", function (event) {
+    const lessonModal = document.getElementById("deleteModal");
+    const challengeModal = document.getElementById("challengeDeleteModal");
+
+    if (lessonModal && event.target === lessonModal) {
+        closeDeleteModal();
+    }
+
+    if (challengeModal && event.target === challengeModal) {
+        closeChallengeDeleteModal();
+    }
+});
+
+
+/* =========================================================
+   AUTH FORM DEMO SUBMIT
+   ========================================================= */
+
+const loginForm = document.getElementById("loginForm");
+
+if (loginForm) {
+    loginForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        alert("Logged in successfully!");
+    });
+}
+
+const signupForm = document.getElementById("signupForm");
 
 if (signupForm) {
-
     signupForm.addEventListener("submit", function (event) {
-
         event.preventDefault();
 
-        const password =
-            document.getElementById("signupPassword");
+        const password = document.getElementById("signupPassword");
+        const confirmPassword = document.getElementById("confirmPassword");
 
-        const confirmPassword =
-            document.getElementById("confirmPassword");
-
-        if (
-            password &&
-            confirmPassword &&
-            password.value !== confirmPassword.value
-        ) {
-
+        if (password && confirmPassword && password.value !== confirmPassword.value) {
             alert("Passwords do not match.");
             return;
-
         }
 
         alert("Account created successfully!");
-
     });
-
 }
 
 
 /* =========================================================
-   21. STUDENT: SEARCH LESSONS
+   STUDENT: SEARCH LESSONS
    ========================================================= */
 
 function searchLessons() {
+    const input = document.getElementById("lessonSearch");
+    if (!input) return;
 
-    const input =
-        document.getElementById("lessonSearch");
-
-    if (!input) {
-        return;
-    }
-
-    const searchTerm =
-        input.value.toLowerCase();
-
-    const cards =
-        document.querySelectorAll(".lesson-card");
-
+    const searchTerm = input.value.toLowerCase();
+    const cards = document.querySelectorAll(".lesson-card");
     cards.forEach(function (card) {
-
-        const text =
-            card.textContent.toLowerCase();
-
-        if (text.includes(searchTerm)) {
-            card.style.display = "";
-        } else {
-            card.style.display = "none";
-        }
-
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(searchTerm) ? "" : "none";
     });
-
 }
 
 
 /* =========================================================
-   22. STUDENT: SEARCH SUBJECTS
+   STUDENT: SEARCH SUBJECTS
    ========================================================= */
 
 function searchStudentSubjects() {
+    const input = document.getElementById("studentSubjectSearch");
+    if (!input) return;
 
-    const input =
-        document.getElementById("studentSubjectSearch");
-
-    if (!input) {
-        return;
-    }
-
-    const searchTerm =
-        input.value.toLowerCase();
-
-    const cards =
-        document.querySelectorAll(".subject-card");
-
+    const searchTerm = input.value.toLowerCase();
+    const cards = document.querySelectorAll(".subject-card");
     cards.forEach(function (card) {
-
-        const text =
-            card.textContent.toLowerCase();
-
-        if (text.includes(searchTerm)) {
-            card.style.display = "";
-        } else {
-            card.style.display = "none";
-        }
-
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(searchTerm) ? "" : "none";
     });
-
 }
 
 
 /* =========================================================
-   23. STUDENT: COMPLETE CHALLENGE
+   STUDENT: COMPLETE CHALLENGE
    ========================================================= */
 
 function completeChallenge() {
+    const fill = document.querySelector(".challenge-progress-fill");
+    if (fill) fill.style.width = "100%";
 
-    const fill =
-        document.querySelector(".challenge-progress-fill");
-
-    const label =
-        document.querySelector(".challenge-progress + p, .challenge-progress p:last-child");
-
-    if (fill) {
-        fill.style.width = "100%";
-    }
-
-    const progressText =
-        document.querySelector(".challenge-progress p");
-
-    if (progressText) {
-        progressText.textContent = "100% completed";
-    }
+    const progressText = document.querySelector(".challenge-progress p");
+    if (progressText) progressText.textContent = "100% completed";
 
     alert("Nice work! Challenge marked as complete.");
-
 }
 
 
 /* =========================================================
-   24. STUDENT: REFLECTION FORM
+   STUDENT: REFLECTION FORM
    ========================================================= */
 
-const reflectionForm =
-    document.getElementById("reflectionForm");
+const reflectionForm = document.getElementById("reflectionForm");
 
 if (reflectionForm) {
-
     reflectionForm.addEventListener("submit", function (event) {
-
         event.preventDefault();
-
         alert("Reflection submitted. Great thinking!");
-
         reflectionForm.reset();
-
     });
-
 }
 
 
 /* =========================================================
-   25. SCROLL REVEAL ANIMATIONS
+   SCROLL REVEAL ANIMATIONS
    ========================================================= */
 
 (function () {
-
-    const revealItems =
-        document.querySelectorAll(".reveal");
-
-    if (!revealItems.length) {
-        return;
-    }
+    const revealItems = document.querySelectorAll(".reveal");
+    if (!revealItems.length) return;
 
     if (!("IntersectionObserver" in window)) {
-
         revealItems.forEach(function (item) {
             item.classList.add("is-visible");
         });
-
         return;
-
     }
 
     const observer = new IntersectionObserver(
         function (entries) {
-
             entries.forEach(function (entry, index) {
-
                 if (entry.isIntersecting) {
-
                     setTimeout(function () {
                         entry.target.classList.add("is-visible");
                     }, index * 90);
-
                     observer.unobserve(entry.target);
-
                 }
-
             });
-
         },
-        {
-            threshold: 0.15,
-            rootMargin: "0px 0px -60px 0px"
-        }
+        { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
     );
 
     revealItems.forEach(function (item) {
         observer.observe(item);
     });
-
 })();
 
 
 /* =========================================================
-   22. NAVBAR SCROLL SHADOW
+   NAVBAR SCROLL SHADOW
    ========================================================= */
 
 (function () {
-
-    const navbar =
-        document.querySelector(".navbar");
-
-    if (!navbar) {
-        return;
-    }
+    const navbar = document.querySelector(".navbar");
+    if (!navbar) return;
 
     window.addEventListener("scroll", function () {
-
-        if (window.scrollY > 12) {
-            navbar.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.06)";
-        } else {
-            navbar.style.boxShadow = "none";
-        }
-
+        navbar.style.boxShadow = window.scrollY > 12
+            ? "0 8px 20px rgba(0, 0, 0, 0.06)"
+            : "none";
     });
-
 })();
+
+
+/* =========================================================
+   SINGLE PAGE LOAD ENTRY POINT — runs relevant loaders
+   based on which elements exist on the current page
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadSubjects();
+    loadLessons();
+    loadTeacherLessons();
+    loadChallengePage();
+    loadTeacherChallenges();
+});
