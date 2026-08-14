@@ -441,7 +441,7 @@ function searchChallenges() {
 
 
 /* =========================================================
-   VIEW / EDIT / DELETE CHALLENGE (teacher)
+   TEACHER: LOAD, VIEW / EDIT / DELETE CHALLENGE
    ========================================================= */
 
 async function loadTeacherChallenges() {
@@ -532,14 +532,15 @@ async function confirmDeleteChallenge() {
 
 
 /* =========================================================
-   LESSON FORM 
+   LESSON FORM (dynamic subjects + real submit to backend)
    ========================================================= */
+
 async function loadSubjectOptions() {
     const select = document.getElementById("lessonSubject");
     if (!select) return;
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/subjects/");
+        const response = await fetch("http://127.0.0.1:8000/subjects");
         const subjects = await response.json();
 
         subjects.forEach(subject => {
@@ -570,6 +571,7 @@ if (lessonForm) {
             title: document.getElementById("lessonTitle").value,
             description: document.getElementById("lessonDescription").value,
             learning_objective: objectives.join("\n"),
+            duration_minutes: parseInt(document.getElementById("lessonDuration").value) || null,
             subject_id: parseInt(document.getElementById("lessonSubject").value)
         };
 
@@ -600,7 +602,7 @@ if (lessonForm) {
 
 
 /* =========================================================
-   CHALLENGE FORM (real submit to backend)
+   CHALLENGE FORM (dynamic lessons + real submit to backend)
    ========================================================= */
 
 async function loadLessonOptions() {
