@@ -8,7 +8,9 @@ class Lesson(Base):
     title = Column(String(150), nullable=False)
     description = Column(Text, nullable=True)
     learning_objective = Column(Text, nullable=True)
+    duration_minutes = Column(Integer, nullable=True) 
     subject_id = Column(Integer, ForeignKey("subjects.id"), nullable=False)
+
 
     subject = relationship("Subject", back_populates="lessons")
     challenges = relationship("Challenge", back_populates="lesson", cascade="all, delete-orphan")

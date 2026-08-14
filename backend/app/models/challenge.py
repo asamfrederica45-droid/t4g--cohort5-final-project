@@ -11,6 +11,7 @@ class Challenge(Base):
     real_life_application = Column(Text, nullable=True)
     reflection_questions = Column(Text, nullable=True)
     difficulty_level = Column(String(20), nullable=False)
+    duration_minutes = Column(Integer, nullable=True)
 
     lesson_id = Column(Integer, ForeignKey("lessons.id"), nullable=False)
     lesson = relationship("Lesson", back_populates="challenges")

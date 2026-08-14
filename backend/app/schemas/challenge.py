@@ -44,6 +44,7 @@ class ChallengeOut(BaseModel):
     real_life_application: Optional[str] = None
     reflection_questions: Optional[str] = None
     difficulty_level: Optional[str] = None
+    duration_minutes: Optional[int] = None 
     lesson_id: int
 
         
