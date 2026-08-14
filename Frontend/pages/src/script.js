@@ -59,6 +59,56 @@ async function loadSubjects() {
 
 
 /* =========================================================
+   TEACHER: LOAD SUBJECTS (with real lesson/challenge counts)
+   ========================================================= */
+
+async function loadTeacherSubjects() {
+    const grid = document.getElementById("teacherSubjectsGrid");
+    if (!grid) return;
+
+    try {
+        const [subjectsRes, lessonsRes, challengesRes] = await Promise.all([
+            fetch("http://127.0.0.1:8000/subjects"),
+            fetch("http://127.0.0.1:8000/lessons/"),
+            fetch("http://127.0.0.1:8000/challenges/")
+        ]);
+        const subjects = await subjectsRes.json();
+        const lessons = await lessonsRes.json();
+        const challenges = await challengesRes.json();
+
+        grid.innerHTML = "";
+
+        subjects.forEach(subject => {
+            const lessonIds = lessons.filter(l => l.subject_id === subject.id).map(l => l.id);
+            const lessonCount = lessonIds.length;
+            const challengeCount = challenges.filter(c => lessonIds.includes(c.lesson_id)).length;
+
+            const card = document.createElement("article");
+            card.classList.add("subject-card");
+            card.innerHTML = `
+                <div class="subject-card-top">
+                    <div class="subject-icon">📘</div>
+                </div>
+                <p class="subject-category">${subject.name.toUpperCase()}</p>
+                <h2>${subject.name}</h2>
+                <p>${subject.description ? subject.description : "No description yet."}</p>
+                <div class="subject-stats">
+                    <span>📖 ${lessonCount} Lesson${lessonCount !== 1 ? "s" : ""}</span>
+                    <span>🧪 ${challengeCount} Challenge${challengeCount !== 1 ? "s" : ""}</span>
+                </div>
+                <a href="lessons.html?subject=${subject.id}" class="subject-link">
+                    Manage Lessons →
+                </a>
+            `;
+            grid.appendChild(card);
+        });
+    } catch (error) {
+        console.error("Error loading teacher subjects:", error);
+    }
+}
+
+
+/* =========================================================
    STUDENT: LOAD LESSONS (filtered by subject if in URL)
    ========================================================= */
 
@@ -113,7 +163,13 @@ async function loadTeacherLessons() {
 
     try {
         const response = await fetch("http://127.0.0.1:8000/lessons/");
-        const lessons = await response.json();
+        let lessons = await response.json();
+
+        const params = new URLSearchParams(window.location.search);
+        const subjectId = params.get("subject");
+        if (subjectId) {
+            lessons = lessons.filter(l => l.subject_id === parseInt(subjectId));
+        }
 
         tbody.innerHTML = "";
 
@@ -700,98 +756,20 @@ window.addEventListener("click", function (event) {
 
 
 /* =========================================================
-   AUTHENTICATION
-   ========================================================= */
-
-const API_URL = "http://127.0.0.1:8000";
-
-/* =========================================================
-   SIGN UP
-   ========================================================= */
-
-const signupForm = document.getElementById("signupForm");
-
-if (signupForm) {
-    signupForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
-
-        const fullName = document.getElementById("signupName").value.trim();
-        const email = document.getElementById("signupEmail").value.trim();
-        const password = document.getElementById("signupPassword").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
-
-        const selectedRole = document.querySelector(
-            'input[name="role"]:checked'
-        );
-
-        if (!selectedRole) {
-            alert("Please select Student or Teacher.");
-            return;
-        }
-
-        if (password !== confirmPassword) {
-            alert("Passwords do not match.");
-            return;
-        }
-
-        const formData = new URLSearchParams();
-
-        formData.append("full_name", fullName);
-        formData.append("email", email);
-        formData.append("password", password);
-        formData.append("role", selectedRole.value);
-
-        try {
-            const response = await fetch(
-                "http://127.0.0.1:8000/users/signup",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    body: formData
-                }
-            );
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                console.error("Signup error:", data);
-                alert(data.detail || "Could not create account.");
-                return;
-            }
-
-            alert("Account created successfully!");
-
-            window.location.href = "login.html";
-
-        } catch (error) {
-            console.error("Connection error:", error);
-            alert("Could not connect to the server.");
-        }
-    });
-}
-
-    
-
-/* =========================================================
-   LOGIN
+   AUTH FORM DEMO SUBMIT
    ========================================================= */
 
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
+
     loginForm.addEventListener("submit", async function (event) {
+
         event.preventDefault();
 
         const email = document.getElementById("loginEmail").value.trim();
         const password = document.getElementById("loginPassword").value;
         const role = document.getElementById("loginRole").value;
-
-        if (!role) {
-            alert("Please select your role.");
-            return;
-        }
 
         const formData = new URLSearchParams();
 
@@ -800,6 +778,7 @@ if (loginForm) {
         formData.append("role", role);
 
         try {
+
             const response = await fetch(
                 "http://127.0.0.1:8000/users/login",
                 {
@@ -814,32 +793,140 @@ if (loginForm) {
             const data = await response.json();
 
             if (!response.ok) {
-                alert(data.detail || "Login failed.");
+
+                alert(
+                    data.detail ||
+                    "Login failed. Please check your details."
+                );
+
                 return;
             }
 
-            // Save the logged-in student's information
-            localStorage.setItem("userId", data.id);
-            localStorage.setItem("userName", data.full_name);
-            localStorage.setItem("userEmail", data.email);
-            localStorage.setItem("userRole", data.role);
+            // Save the logged-in user's information
+            localStorage.setItem(
+                "loggedInUser",
+                JSON.stringify(data)
+            );
 
-            alert("Login successful!");
+            // Send the user to the correct dashboard
+            if (data.role === "teacher") {
 
-            // Redirect based on role
-            if (data.role === "student") {
-                window.location.href = "../student/dashboard.html";
-            } else if (data.role === "teacher") {
                 window.location.href = "../teacher/dashboard.html";
+
+            } else if (data.role === "student") {
+
+                window.location.href = "../student/subjects.html";
+
             }
 
         } catch (error) {
+
             console.error("Login error:", error);
-            alert("Could not connect to the server.");
+
+            alert(
+                "Could not connect to the server."
+            );
         }
+
     });
+
 }
 
+/* =========================================================
+   SIGN UP: CREATE REAL ACCOUNT
+   ========================================================= */
+
+const signupForm = document.getElementById("signupForm");
+
+if (signupForm) {
+
+    signupForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        const fullName = document.getElementById("signupName").value.trim();
+        const email = document.getElementById("signupEmail").value.trim();
+        const password = document.getElementById("signupPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        const selectedRole = document.querySelector(
+            'input[name="role"]:checked'
+        );
+
+        // Check passwords
+        if (password !== confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+        }
+
+        // Check role
+        if (!selectedRole) {
+            alert("Please select whether you are a Student or Teacher.");
+            return;
+        }
+
+        const role = selectedRole.value;
+
+        // Prepare form data for FastAPI
+        const formData = new URLSearchParams();
+
+        formData.append("full_name", fullName);
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("role", role);
+
+        try {
+
+            const response = await fetch(
+                "http://127.0.0.1:8000/users/signup",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: formData
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+
+                alert(
+                    data.detail ||
+                    "Could not create your account."
+                );
+
+                return;
+            }
+
+            alert(
+                "Account created successfully! Please log in."
+            );
+
+            // Send the user to the login page
+            window.location.href = "login.html";
+
+        } catch (error) {
+
+            console.error("Signup error:", error);
+
+            alert(
+                "Could not connect to the server. Make sure your backend is running."
+            );
+        }
+
+    });
+
+}
+const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+
+if (forgotPasswordLink) {
+    forgotPasswordLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        alert("Please contact your teacher or school administrator to reset your password.");
+    });
+}
 
 /* =========================================================
    STUDENT: SEARCH LESSONS
@@ -960,45 +1047,182 @@ if (reflectionForm) {
    SINGLE PAGE LOAD ENTRY POINT — runs relevant loaders
    based on which elements exist on the current page
    ========================================================= */
+   /* =========================================================
+   TEACHER DASHBOARD: LOAD REAL STATISTICS
+   ========================================================= */
 
+async function loadTeacherDashboard() {
+    const subjectCount = document.getElementById("subjectCount");
+    const lessonCount = document.getElementById("lessonCount");
+    const challengeCount = document.getElementById("challengeCount");
+    const studentCount = document.getElementById("studentCount");
+
+    // Only run on the teacher dashboard
+    if (
+        !subjectCount &&
+        !lessonCount &&
+        !challengeCount &&
+        !studentCount
+    ) {
+        return;
+    }
+
+    try {
+        const [
+            subjectsResponse,
+            lessonsResponse,
+            challengesResponse,
+            studentsResponse
+        ] = await Promise.all([
+            fetch("http://127.0.0.1:8000/subjects/"),
+            fetch("http://127.0.0.1:8000/lessons/"),
+            fetch("http://127.0.0.1:8000/challenges/"),
+            fetch("http://127.0.0.1:8000/users/students")
+        ]);
+
+        if (
+            !subjectsResponse.ok ||
+            !lessonsResponse.ok ||
+            !challengesResponse.ok ||
+            !studentsResponse.ok
+        ) {
+            throw new Error("Could not load dashboard statistics.");
+        }
+
+        const subjects = await subjectsResponse.json();
+        const lessons = await lessonsResponse.json();
+        const challenges = await challengesResponse.json();
+        const students = await studentsResponse.json();
+
+        // Put the real numbers into the dashboard
+        if (subjectCount) {
+            subjectCount.textContent = subjects.length;
+        }
+
+        if (lessonCount) {
+            lessonCount.textContent = lessons.length;
+        }
+
+        if (challengeCount) {
+            challengeCount.textContent = challenges.length;
+        }
+
+        if (studentCount) {
+            studentCount.textContent = students.length;
+        }
+
+    } catch (error) {
+        console.error("Error loading teacher dashboard:", error);
+    }
+}
+/* =========================================================
+   LOAD LOGGED-IN USER NAME
+   ========================================================= */
+
+function loadLoggedInUser() {
+    const userData = localStorage.getItem("loggedInUser");
+
+    if (!userData) return;
+
+    try {
+        const user = JSON.parse(userData);
+
+        const teacherName = document.getElementById("teacherName");
+        const welcomeTeacherName = document.getElementById("welcomeTeacherName");
+        const profileInitial = document.getElementById("profileInitial");
+
+        if (teacherName && user.full_name) {
+            teacherName.textContent = user.full_name;
+        }
+
+        if (welcomeTeacherName && user.full_name) {
+            welcomeTeacherName.textContent = user.full_name;
+        }
+
+        if (profileInitial && user.full_name) {
+            profileInitial.textContent =
+                user.full_name.charAt(0).toUpperCase();
+        }
+
+    } catch (error) {
+        console.error("Error loading logged-in user:", error);
+    }
+}
+/* =========================================================
+   TEACHER: SHOW REAL NAME ON DASHBOARD
+   ========================================================= */
+
+function showTeacherName() {
+    const userData = localStorage.getItem("loggedInUser");
+
+    if (!userData) return;
+
+    try {
+        const user = JSON.parse(userData);
+
+        if (user.role !== "teacher") return;
+
+        const teacherName = user.full_name;
+
+        // Change "Welcome back, Teacher!" to the real name
+        const welcomeHeading = document.querySelector(".dashboard-welcome h1");
+
+        if (welcomeHeading && teacherName) {
+            welcomeHeading.textContent =
+                `Welcome back, ${teacherName}! 👩🏾‍🏫`;
+        }
+
+        // Change the name beside the J
+        const profileName = document.querySelector(".teacher-profile span");
+
+        if (profileName && teacherName) {
+            profileName.textContent = teacherName;
+        }
+
+    } catch (error) {
+        console.error("Could not load teacher name:", error);
+    }
+}
+/* =========================================================
+   TEACHER: UPDATE PROFILE INITIAL ON ALL TEACHER PAGES
+   ========================================================= */
+
+function updateTeacherInitial() {
+    const userData = localStorage.getItem("loggedInUser");
+
+    if (!userData) return;
+
+    try {
+        const user = JSON.parse(userData);
+
+        if (user.role !== "teacher" || !user.full_name) return;
+
+        const profileCircle = document.querySelector(".profile-circle");
+
+        if (profileCircle) {
+            profileCircle.textContent =
+                user.full_name.charAt(0).toUpperCase();
+        }
+
+        const profileName = document.querySelector(".teacher-profile span");
+
+        if (profileName) {
+            profileName.textContent = user.full_name;
+        }
+
+    } catch (error) {
+        console.error("Error updating teacher profile:", error);
+    }
+}
 document.addEventListener("DOMContentLoaded", () => {
+    loadTeacherDashboard();
+    loadLoggedInUser();
+    showTeacherName();
+    updateTeacherInitial();
     loadSubjects();
+    loadTeacherSubjects();
     loadLessons();
     loadTeacherLessons();
     loadChallengePage();
     loadTeacherChallenges();
-});
-/* =========================================================
-   DISPLAY LOGGED-IN STUDENT
-   ========================================================= */
-
-function loadLoggedInStudent() {
-
-    const userName = localStorage.getItem("userName");
-
-    if (!userName) {
-        return;
-    }
-
-    const profileName = document.getElementById("profileName");
-    const welcomeName = document.getElementById("welcomeName");
-    const profileInitial = document.getElementById("profileInitial");
-
-    if (profileName) {
-        profileName.textContent = userName;
-    }
-
-    if (welcomeName) {
-        welcomeName.textContent = userName;
-    }
-
-    if (profileInitial) {
-        profileInitial.textContent =
-            userName.charAt(0).toUpperCase();
-    }
-}
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    loadLoggedInStudent();
 });

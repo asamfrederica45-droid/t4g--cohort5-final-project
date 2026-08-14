@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from app.database import engine, Base
-from app.models import  User
+from app.models import  User, Subject, Lesson, Challenge, ChallengeProgress 
 from app.routes import subject_routes, lesson_routes, challenge_routes,user_routes
 from fastapi.middleware.cors import CORSMiddleware
 
