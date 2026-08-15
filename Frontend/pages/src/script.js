@@ -966,14 +966,70 @@ function searchStudentSubjects() {
    STUDENT: COMPLETE CHALLENGE
    ========================================================= */
 
-function completeChallenge() {
-    const fill = document.querySelector(".challenge-progress-fill");
-    if (fill) fill.style.width = "100%";
+async function completeChallenge() {
 
-    const progressText = document.querySelector(".challenge-progress p");
-    if (progressText) progressText.textContent = "100% completed";
+    const params = new URLSearchParams(window.location.search);
+    const challengeId = params.get("id");
 
-    alert("Nice work! Challenge marked as complete.");
+    if (!challengeId) {
+        alert("Challenge not found.");
+        return;
+    }
+
+    const loggedInUser = JSON.parse(
+        localStorage.getItem("loggedInUser")
+    );
+
+    if (!loggedInUser || loggedInUser.role !== "student") {
+        alert("Please log in as a student first.");
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            `http://127.0.0.1:8000/progress/challenges/${challengeId}/complete?student_id=${loggedInUser.id}`,
+            {
+                method: "POST"
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(data.detail || "Could not complete challenge.");
+            return;
+        }
+
+        // Update the progress bar
+        const fill = document.querySelector(
+            ".challenge-progress-fill"
+        );
+
+        if (fill) {
+            fill.style.width = "100%";
+        }
+
+        // Update progress text
+        const progressTexts = document.querySelectorAll(
+            ".challenge-progress p"
+        );
+
+        if (progressTexts.length > 1) {
+            progressTexts[1].textContent = "100% completed";
+        }
+
+        alert("Nice work! Challenge marked as complete.");
+
+    } catch (error) {
+
+        console.error(
+            "Error completing challenge:",
+            error
+        );
+
+        alert("Could not connect to the server.");
+    }
 }
 
 
@@ -981,14 +1037,82 @@ function completeChallenge() {
    STUDENT: REFLECTION FORM
    ========================================================= */
 
+    /* =========================================================
+   STUDENT: REFLECTION FORM
+   ========================================================= */
+
 const reflectionForm = document.getElementById("reflectionForm");
 
 if (reflectionForm) {
-    reflectionForm.addEventListener("submit", function (event) {
+
+    reflectionForm.addEventListener("submit", async function (event) {
+
         event.preventDefault();
-        alert("Reflection submitted. Great thinking!");
-        reflectionForm.reset();
+
+        const loggedInUser = JSON.parse(
+            localStorage.getItem("loggedInUser")
+        );
+
+        if (!loggedInUser || loggedInUser.role !== "student") {
+            alert("Please log in as a student first.");
+            return;
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const challengeId = params.get("id");
+
+        if (!challengeId) {
+            alert("Challenge not found.");
+            return;
+        }
+
+        const observation = document.getElementById("reflection").value.trim();
+        const improvement = document.getElementById("improvement").value.trim();
+
+        if (!observation || !improvement) {
+            alert("Please answer both reflection questions.");
+            return;
+        }
+
+        try {
+
+            const formData = new URLSearchParams();
+
+            formData.append("student_id", loggedInUser.id);
+            formData.append("observation", observation);
+            formData.append("improvement", improvement);
+
+            const response = await fetch(
+                `http://127.0.0.1:8000/reflections/challenges/${challengeId}`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: formData
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(data.detail || "Could not submit reflection.");
+                return;
+            }
+
+            alert("Reflection submitted successfully! 🎉");
+
+            reflectionForm.reset();
+
+        } catch (error) {
+
+            console.error("Reflection error:", error);
+
+            alert("Could not connect to the server.");
+        }
+
     });
+
 }
 
 
@@ -1214,11 +1338,37 @@ function updateTeacherInitial() {
         console.error("Error updating teacher profile:", error);
     }
 }
+function loadLoggedInUser() {
+    const userData = localStorage.getItem("loggedInUser");
+
+    if (!userData) return;
+
+    const user = JSON.parse(userData);
+
+    const profileNames = document.querySelectorAll(
+        ".student-profile span, .teacher-profile span"
+    );
+
+    profileNames.forEach(function (element) {
+        element.textContent = user.full_name;
+    });
+
+    const profileCircles = document.querySelectorAll(
+        ".student-profile .profile-circle, .teacher-profile .profile-circle"
+    );
+
+    profileCircles.forEach(function (element) {
+        element.textContent = user.full_name
+            .charAt(0)
+            .toUpperCase();
+    });
+}
 document.addEventListener("DOMContentLoaded", () => {
     loadTeacherDashboard();
     loadLoggedInUser();
     showTeacherName();
     updateTeacherInitial();
+    loadLoggedInUser();
     loadSubjects();
     loadTeacherSubjects();
     loadLessons();

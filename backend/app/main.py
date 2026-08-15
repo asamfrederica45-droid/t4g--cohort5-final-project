@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from app.database import engine, Base
 from app.models import  User, ChallengeProgress 
-from app.routes import subject_routes, lesson_routes, challenge_routes,user_routes,progress_routes
+from app.routes import subject_routes, lesson_routes, challenge_routes,user_routes,progress_routes,reflection_routes
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -35,6 +35,7 @@ app.include_router(lesson_routes.router)
 app.include_router(challenge_routes.router)
 app.include_router(user_routes.router)
 app.include_router(progress_routes.router)
+app.include_router(reflection_routes.router)
 @app.get("/")
 def root():
     return {"message": "Welcome to the Fredu Spark API. Visit /docs to try it out."}
