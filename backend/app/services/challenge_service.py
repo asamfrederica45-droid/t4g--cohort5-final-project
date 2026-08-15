@@ -29,6 +29,11 @@ def delete_challenge(db: Session, challenge_id: int) -> bool:
     challenge = get_challenge(db, challenge_id)
     if not challenge:
         return False
+
+    db.query(ChallengeProgress).filter(
+        ChallengeProgress.challenge_id == challenge_id
+    ).delete()
+
     db.delete(challenge)
     db.commit()
     return True
