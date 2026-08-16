@@ -1,2 +1,4 @@
 .env
 .vscode/settings.json
+env/
+.vscode/launch.json
